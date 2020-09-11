@@ -1,8 +1,11 @@
 # anime-link
 
-# Project Name
-
 **Author**: Dina-AlSaid | Bayan AlAlem | Mohammad Eshtaiwi | Ahmed Yousef
+
+**Wireframe**
+
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/Prq6wqo"  ><a href="//imgur.com/a/Prq6wqo"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
 
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
