@@ -4,7 +4,11 @@
 
 **Wireframe**
 
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/Prq6wqo"  ><a href="//imgur.com/a/Prq6wqo"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+![Wireframe](https://i.imgur.com/MprjavN.png)
+![Wireframe](https://i.imgur.com/1JAXCHA.png)
+![Wireframe](https://i.imgur.com/WZozDxk.png)
+![Wireframe](https://i.imgur.com/fF38mja.png)
+![Wireframe](https://i.imgur.com/mEI3O2e.png)
 
 
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
