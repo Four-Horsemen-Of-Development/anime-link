@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>details</title>
+    </head>
+    <body>
+        <header>
+            <nav>nav</nav>
+        </header>
+        <main>
+            <% console.log(anime) %>
+            <article class="details">
+                <section>
+                    <img
+                        src="<%= anime.image_url %> "
+                        alt="<%= anime.title %>"
+                    />
+                    <section class="description">
+                        <h2><% anime.title %></h2>
+                        <p><%= anime.description %></p>
+                    </section>
+                </section>
+                <section class="sub-description">
+                    <ul>
+                        <li class="title"><h2>Information</h2></li>
+                        <li><%= anime.episodes %></li>
+                        <li><%= anime.genres %></li>
+                        <li><%= anime.status %></li>
+                        <li><%= anime.aired %></li>
+                        <li><%= anime.duration %></li>
+                        <li><%= anime.rating %></li>
+                    </ul>
+                    <ul></ul>
+                </section>
+            </article>
+        </main>
+    </body>
+</html>
+<!-- <% anime.genres.forEach(item => {%><%= item.name ,
+                            %> <%}); %> -->
