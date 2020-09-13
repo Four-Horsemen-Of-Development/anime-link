@@ -8,21 +8,23 @@ const app = express();
 const pg = require('pg')
 const client = new pg.Client(process.env.DATABASE_URL);
 const methodOverRide = require('method-override');
-let localStorage =null;
+const { log } = require('console');
+let localStorage = null;
 if (typeof localStorage === "undefined" || localStorage === null) {
     var LocalStorage = require('node-localstorage').LocalStorage;
     localStorage = new LocalStorage('./scratch');
-  }
+}
 app.use(methodOverRide('_method'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 
-app.get('/',mainHandler);
-app.get('/login',loginHandler)
-app.post('/signup',signupHandler);
-app.post('/signin',signinHandler);
-app.get('/logout',logoutHandler);
+app.get('/', mainHandler);
+app.get('/login', loginHandler)
+app.post('/signup', signupHandler);
+app.post('/signin', signinHandler);
+app.get('/logout', logoutHandler);
+app.get('/quote', quoteHandler);
 
 app.get("/random", (req, res) => {
     res.render("./pages/random-animes");
@@ -58,19 +60,19 @@ function Anime(anime) {
     this.type = anime.type;
 }
 
-function signupHandler(req,res){
-    let {userName, password } = req.body;
-    let safeValues =[userName];
+function signupHandler(req, res) {
+    let { userName, password } = req.body;
+    let safeValues = [userName];
     let sql = 'SELECT username FROM users WHERE username=$1;'
-    client.query(sql,safeValues).then((results)=>{
+    client.query(sql, safeValues).then((results) => {
         console.log(results.rows);
-        if(results.rowCount > 0 ){
+        if (results.rowCount > 0) {
             console.log('username already exists');//TODO: add alerts
             res.redirect('/login');
-        } else{
-            let safeValues2 =[userName,password];
-            let sql2='insert into users (username ,password) values ($1 , $2);'
-            client.query(sql2,safeValues2).then(()=>{
+        } else {
+            let safeValues2 = [userName, password];
+            let sql2 = 'insert into users (username ,password) values ($1 , $2);'
+            client.query(sql2, safeValues2).then(() => {
                 console.log('user added');
                 res.redirect('/login');
 
@@ -80,20 +82,19 @@ function signupHandler(req,res){
     })
 
 }
-function signinHandler(req, res){
-    let {userName, password } = req.body;
-    let safeValues =[userName,password];
-    let sql = 'SELECT username FROM users WHERE username=$1 AND password=$2;'
-    client.query(sql,safeValues).then((results)=>{
+function signinHandler(req, res) {
+    let { userName, password } = req.body;
+    let safeValues = [userName, password];
+    let sql = 'SELECT username,user_id FROM users WHERE username=$1 AND password=$2;'
+    client.query(sql, safeValues).then((results) => {
         console.log(results.rows);
-        if(results.rowCount > 0 ){
-            console.log('login successful');
-            localStorage.setItem('username',userName);
-            // localStorage.setItem('myFirstKey', 'myFirstValue');
-            console.log(localStorage.getItem('username'));
+        if (results.rowCount > 0) {
+            let user_id = results.rows[0].user_id
+            localStorage.setItem('username', userName);
+            localStorage.setItem('userid', user_id);
 
             res.redirect('/login');
-        } else{
+        } else {
             console.log('login unsuccessful');
             res.redirect('/login');
         }
@@ -101,20 +102,30 @@ function signinHandler(req, res){
     })
 
 }
-function mainHandler(req,res){
+
+function quoteHandler(req, res) {
+    let url = 'https://animechanapi.xyz/api/quotes/random'
+    superAgent.get(url)
+        .then((result) => {
+            // res.send(result.body.data[0].quote);
+            res.send(localStorage.getItem('userid'))
+        })
+}
+
+function mainHandler(req, res) {
     res.render('pages/index');
 }
-function loginHandler(req,res){
-    if(localStorage.getItem('username') != null){
+function loginHandler(req, res) {
+    if (localStorage.getItem('username') != null) {
         res.redirect('/');
         console.log('logged in');
-    }else {
+    } else {
         res.render('pages/login');
-        console.log('nope');    
+        console.log('nope');
     }
 
 }
-function logoutHandler(req,res){
+function logoutHandler(req, res) {
     localStorage.clear();
     res.redirect('/');
 
@@ -122,8 +133,10 @@ function logoutHandler(req,res){
 
 
 client.connect()
-  .then(() => {
-    app.listen(PORT, () =>
-      console.log(`listening on ${PORT}`)
-    );
-  })
+    .then(() => {
+        app.listen(PORT, () =>
+            console.log(`listening on ${PORT}`)
+        );
+    })
+
+    
