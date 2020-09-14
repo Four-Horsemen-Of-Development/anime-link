@@ -38,4 +38,3 @@ $('#seasonal').slick({
     ]
 });
 
-let ctx = $('#topAnimesChart');
