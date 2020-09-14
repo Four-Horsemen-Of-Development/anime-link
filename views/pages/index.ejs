@@ -36,9 +36,6 @@
         <% } %>
     </section>
     <section id="topAnimes">
-        <% console.log(topAnimeArr)%>
-        <% var topAnimeTitle = topAnimeArr.map((item)=>{return item.title}) %>
-        <% var topAnimember = topAnimeArr.map((item)=>{return item.members}) %>
 
         <canvas id="topAnimesChart" width="800" height="450">
 
@@ -50,28 +47,6 @@
     <script src="./js/indexSlider.js"></script>
     <script>
 
-        new Chart($('#topAnimesChart'), {
-            type: 'horizontalBar',
-            data: {
-                labels: topAnimeTitle, //pass it from the ejs to be able to use it here
-                // assume it will not render in the client
-
-                datasets: [
-                    {
-                        label: "Population (millions)",
-                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                        data: topAnimember
-                    }
-                ]
-            },
-            options: {
-                legend: { display: false },
-                title: {
-                    display: true,
-                    text: 'Top 10 Animes'
-                }
-            }
-        })
     </script>
 </body>
 

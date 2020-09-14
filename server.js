@@ -236,34 +236,14 @@ function mainHandler(req, res) {
                 id: result.body.anime[i].mal_id
             })
         }
-        let topAnimeArr = [];
 
-        getTopAnime(topAnimeArr);
         res.render("pages/index",{
             animeArr : animeArr ,
             localUsername: localStorage.getItem("username"),
-            topAnimeArr:topAnimeArr 
         });
     }).catch(()=>{
         res.send("did not work");
     })
-}
-function getTopAnime(topAnimeArr){
-    let url2 ='https://api.jikan.moe/v3/top/anime'
-    superAgent(url2).then((result)=>{
-        for (let i = 0; i < 10; i++) {
-
-            topAnimeArr.push({title: result.body.top[i].title,
-                members: result.body.top[i].members,
-                id: result.body.top[i].mal_id
-            })
-        }
-        console.log(topAnimeArr);
-
-        return topAnimeArr;
-    })
-
-
 }
 
 function getSeason(date){

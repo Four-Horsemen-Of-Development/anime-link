@@ -1,4 +1,7 @@
 'use strict';
+
+let topAnimeArr=[];
+
 $('#seasonal').slick({
 
     infinite: true,
@@ -37,4 +40,55 @@ $('#seasonal').slick({
         }
     ]
 });
+getTopAnime();
+function getTopAnime(){
+    let url2 ='https://api.jikan.moe/v3/top/anime';
+    $.ajax(url2).then((result)=>{
+        for (let i = 0; i < 10; i++) {
 
+            topAnimeArr.push({title: result.top[i].title,
+                members: result.top[i].members,
+                id: result.top[i].mal_id
+            })
+        }
+    topAnimeArr.sort(sortByMembers);
+    }).then(()=>{
+        new Chart($('#topAnimesChart'), {
+            type: 'horizontalBar',
+            data: {
+                labels: topAnimeArr.map((item)=>{return item.title}),
+        
+                datasets: [
+                    {
+                        label: "Population (millions)",
+                        backgroundColor: "#3e95cd",
+                        data: topAnimeArr.map((item)=>{return item.members})
+                    }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Top 10 Animes'
+                }
+            }
+        })
+        
+    })
+
+
+}
+
+function sortByMembers(a,b){
+    if (a.members > b.members) {
+        return -1;
+      }
+      if (a.members < b.members) {
+        return 1;
+      }
+      if(a.members == b.members){
+        return 0;
+
+      }
+}
