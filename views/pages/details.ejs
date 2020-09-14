@@ -10,7 +10,6 @@
             <nav>nav</nav>
         </header>
         <main>
-            <% console.log(anime) %>
             <article class="details">
                 <section>
                     <img
@@ -23,23 +22,89 @@
                     </section>
                 </section>
                 <section class="sub-description">
-                    <ul>
-                        <li class="title"><h2>Information</h2></li>
-                        <li>episodes:  <%= anime.episodes %></li>
-                        <li>genres:  <%= anime.genres %></li>
-                        <li>status: <%= anime.status %></li>
-                        <li>aired: <%= anime.aired %></li>
-                        <li>duration: <%= anime.duration %></li>
-                        <li> rating:  <%= anime.rating %></li>
-                    </ul>
-                    <ul><li class="title"><h2>rating</h2></li>
-                        <li> score: <%= anime.score %></li>
-                        <li>popularity:  <%= anime.popularity %></li>
-                     
+                    <% console.log(localStorage) %>
+                    <div>
+                        <h2 class="title">Information</h2>
+                        <ul>
+                            <li>episodes: <%= anime.episodes %></li>
+                            <li>genres: <%= anime.genres %></li>
+                            <li>status: <%= anime.status %></li>
+                            <li>aired: <%= anime.aired %></li>
+                            <li>duration: <%= anime.duration %></li>
+                            <li>rating: <%= anime.rating %></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="title">rating</h2>
+
+                        <ul>
+                            <li>score: <%= anime.score %></li>
+                            <li>scored by: <%= anime.scored_by %></li>
+                            scored_by
+                            <li>popularity: <%= anime.popularity %></li>
+                            <li>rank: <%= anime.rank %></li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="add-anime-to">
+                    <% if (localStorage.getItem("userid")!==null ){ %>
+
+                    <form action="/updateUserList" method="POST">
+                        <%- include('../layouts/anime_inputs') %>
+                        <!--  -->
+
+                        <input
+                            type="hidden"
+                            name="option"
+                            value="is_favorite"
+                        />
+                        <button type="submit">favorite</button>
+                    </form>
+                    <form action="/updateUserList" method="POST">
+                        <%- include('../layouts/anime_inputs') %>
+                        <!--  -->
+
+                        <input
+                            type="hidden"
+                            name="option"
+                            value="is_watching"
+                        />
+                        <button type="submit">watching</button>
+                    </form>
+                    <form action="/updateUserList" method="POST">
+                        <%- include('../layouts/anime_inputs') %>
+                        <!--  -->
+                        <input type="hidden" name="option" value="is_watched" />
+                        <button type="submit">watched</button>
+                    </form>
+                    <% if (anime.airing) { %>
+                    <form action="/updateUserList" method="POST">
+                        <%- include('../layouts/anime_inputs') %>
+                        <!--  -->
+                        <input type="hidden" name="option" value="following" />
+                        <button type="submit">follow</button>
+                    </form>
+
+                    <% } %> <% } %>
+                </section>
+                <section class="recomindition">
+                    <% for( let index = 0; index < 4; index++ ) { %> <% if
+                    (result.recommendations[index] !== undefined) { %>
+                    <form
+                        action="/details/<%= result.recommendations[index].mal_id %>"
+                    >
+                        <button type="submit">
+                            <img
+                                id="random-img"
+                                src="<%= result.recommendations[index].image_url%>"
+                                alt="random.jpg"
+                            />
+                            <h2><%= result.recommendations[index].title%></h2>
+                        </button>
+                    </form>
+                    <% } %> <% } %>
                 </section>
             </article>
         </main>
     </body>
 </html>
-<!-- <% anime.genres.forEach(item => {%><%= item.name ,
-                            %> <%}); %> -->
