@@ -31,14 +31,30 @@ app.post('/searchShow', searchHandler)
 app.get("/random", (req, res) => {
     res.render("./pages/random-animes");
 });
+app.get("/user_list", (req, res) => {
+    let safeValue = [localStorage.getItem("userid")];
+    console.log(safeValue);
+    const getList = `select * from useranime ua 
+            JOIN users as u on u.user_id = ua.user_id 
+            JOIN animes as a on a.mal_id = ua.mal_id
+            WHERE $1 = ua.user_id
+            `;
+    client.query(getList, safeValue).then(({ rows }) => {
+        res.render("./pages/userlist", { animeList: rows, localStorage });
+    });
+    // res.render("./pages/random-animes");
+});
 
 app.get("/details/:id", (req, res) => {
     const url = `https://api.jikan.moe/v3/anime/${req.params.id}`;
 
-    superAgent.get(url).then(({ body }) => {
+    superAgent.get(url).then(async ({ body }) => {
         let anime = new Anime(body);
-
-        res.render("./pages/details", { anime, localStorage });
+        let recomndetionUrl = `https://api.jikan.moe/v3/anime/${req.params.id}/recommendations`;
+        let { body: result } = await superAgent.get(recomndetionUrl);
+        console.log(result);
+        // res.send(result.recommendations);
+        res.render("./pages/details", { anime, localStorage, result });
     });
 });
 
@@ -65,11 +81,12 @@ function Anime(anime) {
 }
 app.post("/updateUserList", (req, res) => {
     console.log("/updateUserList", req.body);
+
     let safeValuesOfAnime = [
         req.body.mal_id,
         req.body.title,
         req.body.image_url,
-        req.body.broadcast,
+        req.body.broadcast.split(" ")[0].slice(0, -1).toUpperCase(),
     ];
     const insertAnime = `INSERT INTO animes values ($1,$2,$3,$4)`;
     client
@@ -79,13 +96,9 @@ app.post("/updateUserList", (req, res) => {
             updateAnimeInlist(req);
         })
         .catch((error) => {
-            // console.log(error);
             updateAnimeInlist(req);
         });
 });
-// function updateAnimeInlist(req) {
-//     checkIfAnimeExist(req);
-// }
 
 function updateAnimeInlist(req) {
     let animeId = [req.body.mal_id];
@@ -98,6 +111,7 @@ function updateAnimeInlist(req) {
     client
         .query(getList, animeId)
         .then(({ rowCount }) => {
+            console.log("rowCountrowCountrowCountrowCountrowCount", rowCount);
             if (rowCount === 0) {
                 insertAnimeList(req);
             } else {
@@ -124,6 +138,10 @@ function updateAnimeInlist(req) {
 function insertAnimeList(req) {
     console.log("inseeeeeeeeeeeeeert");
     let safeValuesOfList = [req.body.mal_id, req.body.user_id, true];
+    console.log(
+        "safeValuesOfList safeValuesOfListsafeValuesOfList",
+        safeValuesOfList
+    );
     const insertIntoAnimeList = `INSERT INTO useranime (mal_id,user_id,${req.body.option}) values ($1,$2,$3)`;
     client
         .query(insertIntoAnimeList, safeValuesOfList)
@@ -134,7 +152,17 @@ function insertAnimeList(req) {
             console.log(error);
         });
 }
-
+app.get("/notification", async (req, res) => {
+    let getnotification = `select * from useranime ua
+    JOIN users as u on u.user_id = ua.user_id
+    JOIN animes as a on a.mal_id = ua.mal_id
+    where ua.following = true and  trim(to_char(current_timestamp, 'DAY'))  = a.broadcast
+    `;
+    // let getnotification = `select trim(to_char(current_timestamp, 'DAY'));
+    // `;
+    let { rows } = await client.query(getnotification);
+    res.send(rows);
+});
 function signupHandler(req, res) {
     let { userName, password } = req.body;
     let safeValues = [userName];
