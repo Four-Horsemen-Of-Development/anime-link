@@ -197,7 +197,62 @@ function searchHandler(req, res) {
 
 
 function mainHandler(req, res) {
-    res.render("pages/index");
+    let date = new Date();
+    let season = getSeason(date);
+    let url=`https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
+    superAgent(url).then((result)=>{
+        let animeArr = [];
+        for (let i = 0; i < 8; i++) {
+            animeArr.push({title: result.body.anime[i].title,
+                image_url: result.body.anime[i].image_url,
+                id: result.body.anime[i].mal_id
+            })
+        }
+        res.render("pages/index",{animeArr : animeArr ,localUsername:localStorage.getItem("username"),topAnimeArr:getTopAnime()});
+    }).catch(()=>{
+        res.send("did not work");
+    })
+}
+function getTopAnime(){
+    let url2 ='https://api.jikan.moe/v3/top/anime'
+    superAgent(url2).then((result)=>{
+        let topAnimeArr = [];
+        for (let i = 0; i < 10; i++) {
+            topAnimeArr.push({title: result.body.top[i].title,
+                members: result.body.top[i].members,
+                id: result.body.top[i].mal_id
+            })
+        }
+        console.log(topAnimeArr);
+        return(topAnimeArr);
+    })
+
+
+}
+
+function getSeason(date){
+    switch (date.getMonth()){
+        case 3 :
+        case 4 :
+        case 5 :
+            return 'spring';
+            break;
+        case 6 :
+        case 7 :
+        case 8 :
+            return 'summer';
+            break;
+        case 9 :
+        case 10 :
+        case 11 :
+            return 'autumn';
+            break;
+        case 0 :
+        case 1 :
+        case 2 :
+            return 'winter';
+            break;
+    }
 }
 function loginHandler(req, res) {
     if (localStorage.getItem("username") != null) {
@@ -205,7 +260,7 @@ function loginHandler(req, res) {
         console.log("logged in");
     } else {
         res.render("pages/login");
-        console.log("nope");
+        console.log("not logged in");
     }
 }
 function logoutHandler(req, res) {
