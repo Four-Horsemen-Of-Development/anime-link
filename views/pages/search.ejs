@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script id="anime-template" type='text/x-tmpl-mustache'>
-        <section>
-          <h2>{{title}}</h2>
-          <img src="{{image_url}}">
+        <section id="searched-anime">
+            <form id="searched-form" action="/details/{{mal_id}}">
+                <button type="submit">
+                     <h2>{{title}}</h2>
+                     <img src="{{image_url}}">
+                </button>
+        </form>
         </section>
       </script>
 </head>
@@ -43,7 +47,7 @@
         </form>
 
 
-        <section id="searchResults">
+        <section id="searchResults" style="display: flex; flex-wrap:wrap;">
         </section>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"></script>
