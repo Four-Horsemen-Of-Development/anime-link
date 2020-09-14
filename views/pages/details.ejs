@@ -87,6 +87,23 @@
 
                     <% } %> <% } %>
                 </section>
+                <section class="recomindition">
+                    <% for( let index = 0; index < 4; index++ ) { %> <% if
+                    (result.recommendations[index] !== undefined) { %>
+                    <form
+                        action="/details/<%= result.recommendations[index].mal_id %>"
+                    >
+                        <button type="submit">
+                            <img
+                                id="random-img"
+                                src="<%= result.recommendations[index].image_url%>"
+                                alt="random.jpg"
+                            />
+                            <h2><%= result.recommendations[index].title%></h2>
+                        </button>
+                    </form>
+                    <% } %> <% } %>
+                </section>
             </article>
         </main>
     </body>
