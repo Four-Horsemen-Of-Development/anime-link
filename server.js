@@ -19,12 +19,14 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./public"));
 
-app.get("/", mainHandler);
-app.get("/login", loginHandler);
-app.post("/signup", signupHandler);
-app.post("/signin", signinHandler);
-app.get("/logout", logoutHandler);
-app.get("/quote", quoteHandler);
+app.get('/', mainHandler);
+app.get('/login', loginHandler)
+app.post('/signup', signupHandler);
+app.post('/signin', signinHandler);
+app.get('/logout', logoutHandler);
+app.get('/quote', quoteHandler);
+app.get('/search', searchRender)
+app.post('/searchShow', searchHandler)
 
 app.get("/random", (req, res) => {
     res.render("./pages/random-animes");
@@ -208,6 +210,20 @@ function quoteHandler(req, res) {
     });
 }
 
+function searchRender(req, res) {
+    res.render('pages/search')
+}
+
+function searchHandler(req, res) {
+    let { searchQuery, genre, rated, status } = req.body;
+    let url = `https://api.jikan.moe/v3/search/anime?q=${searchQuery}${genre}${rated}${status}&limit=30`
+    superAgent.get(url)
+        .then(result => {
+            console.log(result.body);
+        })
+}
+
+
 function mainHandler(req, res) {
     res.render("pages/index");
 }
@@ -224,6 +240,7 @@ function logoutHandler(req, res) {
     localStorage.clear();
     res.redirect("/");
 }
+
 
 client.connect().then(() => {
     app.listen(PORT, () => console.log(`listening on ${PORT}`));
