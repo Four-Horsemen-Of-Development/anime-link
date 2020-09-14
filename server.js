@@ -22,7 +22,7 @@ app.get("/details/:id", (req, res) => {
     superAgent.get(url).then(({ body }) => {
         let anime = new Anime(body);
         console.log(anime);
-        res.render("./pages/details", { anime });
+        res.render("./pages/details", { anime });1
     });
 });
 
