@@ -1,0 +1,32 @@
+{
+  "name": "anime-link",
+  "version": "1.0.0",
+  "description": "**Author**: Dina-AlSaid | Bayan AlAlem | Mohammad Eshtaiwi | Ahmed Yousef",
+  "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "node-localstorage": "^2.1.6",
+    "pg": "^8.3.3",
+    "superagent": "^6.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Four-Horsemen-Of-Development/anime-link.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Four-Horsemen-Of-Development/anime-link/issues"
+  },
+  "homepage": "https://github.com/Four-Horsemen-Of-Development/anime-link#readme"
+}
