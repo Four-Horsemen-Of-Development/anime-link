@@ -1,6 +1,6 @@
+DROP TABLE IF EXISTS userAnime;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS animes;
-DROP TABLE IF EXISTS userAnime;
 CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS animes (
 CREATE TABLE IF NOT EXISTS userAnime (
   is_favorite BOOLEAN DEFAULT false,
   is_watching BOOLEAN DEFAULT false,
-  to_watch BOOLEAN DEFAULT false,
+  is_watched BOOLEAN DEFAULT false,
   following BOOLEAN DEFAULT false,
   mal_id INT REFERENCES animes (mal_id),
   user_id INT REFERENCES users (user_id),
