@@ -3,11 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title>Anime-Limk</title>
+    <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick-theme.css"/></head>
 <body>
     <a href="/login">login</a>
-    <a href="/logout">logout</a>
+    <a class="lol" href="/logout">logout</a>
     <a href="/random">random</a>
+    <section id='seasonal'>
+        <% animeArr.forEach((item)=>{%>
+            <div>
+            <p><%= item.title%></p>
+            <img src="<%= item.image_url%>" style="max-width: 100%;">
+        </div>
+        <% })%>
+    </section>
+    <section id="banner">
+        <% if(localUsername != null){%>
+            <p>logged</p>
+            <img src="https://placehold.it/960x300/" width="100%">
+        <%}else {%>
+            <p>not logged</p>
+            <img src="https://placehold.it/960x300/ff7" width="100%">
+
+        <% } %>
+    </section>
+    <section id="topAnimes">
+        <canvas id="topAnimesChart">
+
+        </canvas>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://www.jsdelivr.com/package/npm/chart.js"></script>
+    <script src="./js/indexSlider.js"></script> 
+
 </body>
 </html>
