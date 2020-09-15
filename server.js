@@ -24,7 +24,7 @@ app.get('/login', loginHandler)
 app.post('/signup', signupHandler);
 app.post('/signin', signinHandler);
 app.get('/logout', logoutHandler);
-app.get('/quote', quoteHandler);
+// app.get('/quote', quoteHandler);
 app.get('/search', searchRender)
 app.post('/searchShow', searchHandler)
 
@@ -202,12 +202,7 @@ function signinHandler(req, res) {
     });
 }
 
-function quoteHandler(req, res) {
-    let url = "https://animechanapi.xyz/api/quotes/random";
-    superAgent.get(url).then((result) => {
-        // res.send(result.body.data[0].quote);
-        res.send(localStorage.getItem("userid"));
-    });
+function quoteHandler() {
 }
 
 function searchRender(req, res) {
@@ -236,11 +231,17 @@ function mainHandler(req, res) {
                 id: result.body.anime[i].mal_id
             })
         }
+        let url2 = "https://animechanapi.xyz/api/quotes/random";
+        superAgent.get(url2).then((results) => {
+            res.render("pages/index",{
+                animeArr : animeArr ,
+                localUsername: localStorage.getItem("username"),
+                quote : results.body.data[0],
+            });
 
-        res.render("pages/index",{
-            animeArr : animeArr ,
-            localUsername: localStorage.getItem("username"),
         });
+    
+    
     }).catch(()=>{
         res.send("did not work");
     })
