@@ -1,28 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login|Signup</title>
+    <link rel="stylesheet" href="../../styles/main.css" />
 </head>
-<body>
-    <section>
-        <h2>New user? Sign up!!</h2>
-        <form action="/signup" method="POST">
-            <input required type="text" name="userName" placeholder="Username">
-            <input required type="password" name="password" placeholder="***********" minlength="6">
-            <input required type="submit">
-        </form>
-    </section>
-    <section>
-        <h2>Already a user? Log in</h2>
-        <form action="/signin" method="POST">
-            <input required type="text" name="userName" placeholder="Username">
-            <input required type="password" name="password" placeholder="***********" minlength="6">
-            <input required type="submit">
-    
-        </form>
 
-    </section>
+<body>
+    <!-- <div class="login-container">
+        <div class="login-form-wrap" style="display: none;">
+            <section>
+                <h2>New user? Sign up!!</h2>
+                <form action="/signup" method="POST">
+                    <input required type="text" name="userName" placeholder="Username">
+                    <input required type="password" name="password" placeholder="***********" minlength="6">
+                    <input required type="password" name="passwordValidate" placeholder="***********" minlength="6">
+                    <input required type="submit">
+                </form>
+            </section>
+            <section>
+                <h2>Already a user? Log in</h2>
+                <form action="/signin" method="POST">
+                    <input required type="text" name="userName" placeholder="Username">
+                    <input required type="password" name="password" placeholder="***********" minlength="6">
+                    <input required type="submit">
+
+                </form>
+            </section>
+
+        </div>
+    </div> -->
+
+    <div>
+        <div class="error-message">
+            <p><%=message%></p>
+        </div>
+        <div class="login-container d-flex">
+            <div class="login-form-wrap">
+                <form class="width100 justify-between flex-wrap d-flex " action="/signup" method="POST">
+                    <span class="login-form-title">
+                        New user? Sign up!
+                    </span>
+
+
+                    <div class="label-container">
+                        <span class="text1">
+                            Username
+                        </span>
+                    </div>
+                    <div class="wrap-input">
+                        <input required class="login-input" type="text" name="userName" placeholder="Username">
+                    </div>
+                    <div class="label-container">
+                        <span class="text1">
+                            Password
+                        </span>
+                    </div>
+                    <div class="wrap-input">
+                        <input required class="login-input" type="password" name="password" placeholder="***********"
+                            minlength="6">
+                    </div>
+                    <div class="label-container">
+                        <span class="text1">
+                            Type your Password again
+                        </span>
+                    </div>
+                    <div class="wrap-input">
+                        <input required class="login-input" type="password" name="passwordValidate"
+                            placeholder="***********" minlength="6">
+                    </div>
+                    <div class="login-form-button-container" style="margin-top:17px;">
+                        <button class="login-form-button">
+                            Sign Up
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="login-form-wrap">
+
+                <form class="width100 justify-between flex-wrap d-flex" action="/signin" method="POST">
+                    <span class="login-form-title">
+                        Already a user? Sign in!
+                    </span>
+
+
+                    <div class="label-container">
+                        <span class="text1">
+                            Username
+                        </span>
+                    </div>
+                    <div class="wrap-input">
+                        <input required class="login-input" type="text" name="userName" placeholder="Username">
+                    </div>
+                    <div class="label-container">
+                        <span class="text1">
+                            Password
+                        </span>
+                    </div>
+                    <div class="wrap-input">
+                        <input required class="login-input" type="password" name="password" placeholder="***********"
+                            minlength="6">
+                    </div>
+                    <div class="login-form-button-container">
+                        <button class="login-form-button login-button-second">
+                            Sign In
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 </body>
+
 </html>
