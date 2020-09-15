@@ -1,1 +1,35 @@
 @import "./layout.css";
+@import "./utilities.css";
+
+html {
+    font-size: 18px;
+    line-height: 1.4;
+}
+/* --- main description --- */
+.description img {
+    flex-basis: 30%;
+    height: 450px;
+}
+.container .description > section {
+    flex-basis: 68%;
+    padding-left: 2%;
+}
+/* xxx main description xxx */
+
+.sub-description ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(362px, 1fr));
+    gap: 30px;
+    padding-left: 20px;
+}
+
+/* add to forms button */
+.add-anime-to {
+    padding: 5em;
+    font-size: 18px;
+}
+.add-anime-to form + form {
+    margin-left: 10px;
+}
+.add-anime-to form button {
+}
