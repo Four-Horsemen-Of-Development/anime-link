@@ -11,52 +11,63 @@
 </head>
 
 <body>
-    <main class="container">
-        <a href="/login">login</a>
-        <a class="lol" href="/logout">logout</a>
-        <a href="/random">random</a>
-        <section class="banner">
-            <section id="banner" class="padding">
-                <% if(localUsername != null){%>
-                <p>Welcome Back</p>
-                <!-- <img src="https://placehold.it/960x300/" width="100%"> -->
-                <p><%= localUsername%></p>
-                <%}else {%>
-                <p>Sign up for free</p>
-                <a href="/login">SIGN UP</a>
-                <!-- <img src="https://placehold.it/960x300/ff7" width="100%"> -->
-        
-                <% } %>
-            </section>
-            <section class="d-flex justify-between ">
-                <div class="feature">SEARCH for animes</div>
-                <div class="feature">KEEP TRACK of your favourite animes</div>
-                <div class="feature">'PLACEHOLDER'</div>
-            </section>
-        </section>
-        <section id='seasonal' class="row padding" >
-            <% animeArr.forEach((item)=>{%>
-            <div>
-                <form id="searched-form" action="/details/<%= item.id%>" class="col">
-                    <button type="submit">
-                        <img src="<%= item.image_url%>" style="max-width: 100%;">
-                        <h2><%= item.title%></h2>
-                    </button>
-                </form>
-            </div>
-            <% })%>
-        </section>
-        <section class="quoteSec padding">
-            <p><span><%= quote.anime%> <%= quote.character%></span></p>
-            <p><%= quote.quote%></p>
-        </section>
+    <a href="/logout">logout</a>
+    <a href="/random">random</a>
+    <section class="banner container">
+        <section id="banner" class="padding">
+            <% if(localUsername != null){%>
+            <p class="bannerText">Welcome Back</p>
+            <a href="/user_list" class="indexButtons">User panel</a>
 
-        <section id="topAnimes" class="padding">
+            <%}else {%>
+            <p class="bannerText">Sign up for free</p>
+            <a href="/login" class="indexButtons">SIGN UP</a>
     
-            <canvas id="topAnimesChart" width="800" height="450">
-    
-            </canvas>
+            <% } %>
         </section>
+        <section class="d-flex justify-around ">
+            <div class="feature">SEARCH for animes</div>
+            <div class="feature">KEEP TRACK of your favourite animes</div>
+            <div class="feature">'PLACEHOLDER'</div>
+        </section>
+    </section>
+    <main class="colorback">
+        <div class="container">
+            <hr>
+            <p class="bannerText">Seasonal Anime</p>
+
+            <section id='seasonal' class="row padding" >
+
+                <% animeArr.forEach((item)=>{%>
+                <div>
+                    <form id="searched-form" action="/details/<%= item.id%>" class="col">
+                        <button type="submit">
+                            <img src="<%= item.image_url%>" style="max-width: 100%;">
+                            <h2><%= item.title%></h2>
+                        </button>
+                    </form>
+                </div>
+                <% })%>
+            </section>
+            <hr>
+            <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="rotate quote">
+            <section class="quoteSec padding">
+                <p><span><%= quote.anime%> <%= quote.character%></span></p>
+                <p><%= quote.quote%></p>
+            </section>
+            <div class="quoteClose">
+                <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="quote">
+    
+                <hr>
+            </div>
+
+            <section id="topAnimes" class="padding">
+
+                <canvas id="topAnimesChart" width="800" height="450">
+        
+                </canvas>
+            </section>
+        </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

@@ -11,6 +11,7 @@
     width: 220px;
     height: 100%;
     margin: 0 auto;
+
 }
 
 /* .row .col + .col {
@@ -27,6 +28,9 @@
     height: 1.2em;
     white-space: nowrap;
     font-size: medium;
+    font-family: 'Playfair Display', serif;
+    color: white;
+
 }
 
 .col button {
