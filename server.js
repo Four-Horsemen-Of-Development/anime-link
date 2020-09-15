@@ -31,14 +31,30 @@ app.post('/searchShow', searchHandler)
 app.get("/random", (req, res) => {
     res.render("./pages/random-animes");
 });
+app.get("/user_list", (req, res) => {
+    let safeValue = [localStorage.getItem("userid")];
+    console.log(safeValue);
+    const getList = `select * from useranime ua 
+            JOIN users as u on u.user_id = ua.user_id 
+            JOIN animes as a on a.mal_id = ua.mal_id
+            WHERE $1 = ua.user_id
+            `;
+    client.query(getList, safeValue).then(({ rows }) => {
+        res.render("./pages/userlist", { animeList: rows, localStorage });
+    });
+    // res.render("./pages/random-animes");
+});
 
 app.get("/details/:id", (req, res) => {
     const url = `https://api.jikan.moe/v3/anime/${req.params.id}`;
 
-    superAgent.get(url).then(({ body }) => {
+    superAgent.get(url).then(async ({ body }) => {
         let anime = new Anime(body);
-
-        res.render("./pages/details", { anime, localStorage });
+        let recomndetionUrl = `https://api.jikan.moe/v3/anime/${req.params.id}/recommendations`;
+        let { body: result } = await superAgent.get(recomndetionUrl);
+        console.log(result);
+        // res.send(result.recommendations);
+        res.render("./pages/details", { anime, localStorage, result });
     });
 });
 
@@ -65,11 +81,12 @@ function Anime(anime) {
 }
 app.post("/updateUserList", (req, res) => {
     console.log("/updateUserList", req.body);
+
     let safeValuesOfAnime = [
         req.body.mal_id,
         req.body.title,
         req.body.image_url,
-        req.body.broadcast,
+        req.body.broadcast.split(" ")[0].slice(0, -1).toUpperCase(),
     ];
     const insertAnime = `INSERT INTO animes values ($1,$2,$3,$4)`;
     client
@@ -79,13 +96,9 @@ app.post("/updateUserList", (req, res) => {
             updateAnimeInlist(req);
         })
         .catch((error) => {
-            // console.log(error);
             updateAnimeInlist(req);
         });
 });
-// function updateAnimeInlist(req) {
-//     checkIfAnimeExist(req);
-// }
 
 function updateAnimeInlist(req) {
     let animeId = [req.body.mal_id];
@@ -98,6 +111,7 @@ function updateAnimeInlist(req) {
     client
         .query(getList, animeId)
         .then(({ rowCount }) => {
+            console.log("rowCountrowCountrowCountrowCountrowCount", rowCount);
             if (rowCount === 0) {
                 insertAnimeList(req);
             } else {
@@ -124,6 +138,10 @@ function updateAnimeInlist(req) {
 function insertAnimeList(req) {
     console.log("inseeeeeeeeeeeeeert");
     let safeValuesOfList = [req.body.mal_id, req.body.user_id, true];
+    console.log(
+        "safeValuesOfList safeValuesOfListsafeValuesOfList",
+        safeValuesOfList
+    );
     const insertIntoAnimeList = `INSERT INTO useranime (mal_id,user_id,${req.body.option}) values ($1,$2,$3)`;
     client
         .query(insertIntoAnimeList, safeValuesOfList)
@@ -134,7 +152,17 @@ function insertAnimeList(req) {
             console.log(error);
         });
 }
-
+app.get("/notification", async (req, res) => {
+    let getnotification = `select * from useranime ua
+    JOIN users as u on u.user_id = ua.user_id
+    JOIN animes as a on a.mal_id = ua.mal_id
+    where ua.following = true and  trim(to_char(current_timestamp, 'DAY'))  = a.broadcast
+    `;
+    // let getnotification = `select trim(to_char(current_timestamp, 'DAY'));
+    // `;
+    let { rows } = await client.query(getnotification);
+    res.send(rows);
+});
 function signupHandler(req, res) {
     let { userName, password } = req.body;
     let safeValues = [userName];
@@ -197,7 +225,62 @@ function searchHandler(req, res) {
 
 
 function mainHandler(req, res) {
-    res.render("pages/index");
+    let date = new Date();
+    let season = getSeason(date);
+    let url=`https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
+    superAgent(url).then((result)=>{
+        let animeArr = [];
+        for (let i = 0; i < 8; i++) {
+            animeArr.push({title: result.body.anime[i].title,
+                image_url: result.body.anime[i].image_url,
+                id: result.body.anime[i].mal_id
+            })
+        }
+        res.render("pages/index",{animeArr : animeArr ,localUsername:localStorage.getItem("username"),topAnimeArr:getTopAnime()});
+    }).catch(()=>{
+        res.send("did not work");
+    })
+}
+function getTopAnime(){
+    let url2 ='https://api.jikan.moe/v3/top/anime'
+    superAgent(url2).then((result)=>{
+        let topAnimeArr = [];
+        for (let i = 0; i < 10; i++) {
+            topAnimeArr.push({title: result.body.top[i].title,
+                members: result.body.top[i].members,
+                id: result.body.top[i].mal_id
+            })
+        }
+        console.log(topAnimeArr);
+        return(topAnimeArr);
+    })
+
+
+}
+
+function getSeason(date){
+    switch (date.getMonth()){
+        case 3 :
+        case 4 :
+        case 5 :
+            return 'spring';
+            break;
+        case 6 :
+        case 7 :
+        case 8 :
+            return 'summer';
+            break;
+        case 9 :
+        case 10 :
+        case 11 :
+            return 'autumn';
+            break;
+        case 0 :
+        case 1 :
+        case 2 :
+            return 'winter';
+            break;
+    }
 }
 function loginHandler(req, res) {
     if (localStorage.getItem("username") != null) {
@@ -205,7 +288,7 @@ function loginHandler(req, res) {
         console.log("logged in");
     } else {
         res.render("pages/login");
-        console.log("nope");
+        console.log("not logged in");
     }
 }
 function logoutHandler(req, res) {

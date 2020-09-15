@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <!-- --- favourites --- -->
+        <section class="favourites">
+            <h2>favourites</h2>
+            <% for( let anime = 0; anime < animeList.length; anime++ ) { %>
+            <% if (animeList[anime].is_favorite) { %>
+            <form action="/details/<%= animeList[anime].mal_id %>">
+
+                <button type="submit">
+                    <img id="random-img" src="<%= animeList[anime].image_url %>" alt="random.jpg" />
+                </button>
+                
+                <h2><%= animeList[anime].title %></h2>
+            </form>
+            <form action="/updateUserList" method="POST">
+                <input type="hidden" name="broadcast" value="<%= animeList[anime].broadcast %>" />
+                <input type="hidden" name="title" value="<%= animeList[anime].title %>" />
+                <input type="hidden" name="image_url" value="<%= animeList[anime].image_url %>" />
+                <input type="hidden" name="mal_id" value="<%= animeList[anime].mal_id %>" />
+                <input type="hidden" name="user_id" value="<%= localStorage.getItem("userid")%>" />
+                <!--  -->
+
+                <input type="hidden" name="option" value="is_favorite" />
+                <button type="submit">delete</button>
+            </form>
+            <% } %> <% } %>
+        </section>
+        <!-- xxx favourites xxx -->
+        <!-- xxx watching xxx -->
+        <section class="watching">
+            <h2>watching</h2>
+            <% for( let anime = 0; anime < animeList.length; anime++ ) { %> <%
+            if (animeList[anime].is_watching) { %>
+            <form action="/details/<%= animeList[anime].mal_id %>">
+                <button type="submit">
+                    <img id="random-img" src="<%= animeList[anime].image_url %>" alt="random.jpg" />
+                </button>
+                <h2><%= animeList[anime].title %></h2>
+            </form>
+            <form action="/updateUserList" method="POST">
+                <input type="hidden" name="broadcast" value="<%= animeList[anime].broadcast %>" />
+                <input type="hidden" name="title" value="<%= animeList[anime].title %>" />
+                <input type="hidden" name="image_url" value="<%= animeList[anime].image_url %>" />
+                <input type="hidden" name="mal_id" value="<%= animeList[anime].mal_id %>" />
+                <input type="hidden" name="user_id" value="<%= localStorage.getItem("userid")%>" />
+                <!--  -->
+
+                <input type="hidden" name="option" value="is_watching" />
+                <button type="submit">delete</button>
+            </form>
+            <% } %> <% } %>
+            <!-- xxx watching xxx -->
+            <!-- --- watched --- -->
+            <section class="watched">
+                <h2>watched </h2>
+                <% for( let anime = 0; anime < animeList.length; anime++ ) { %>
+                <% if (animeList[anime].is_watched) { %>
+                <form action="/details/<%= animeList[anime].mal_id %>">
+                    <button type="submit">
+                        <img id="random-img" src="<%= animeList[anime].image_url %>" alt="random.jpg" />
+                    </button>
+                    <h2><%= animeList[anime].title %></h2>
+                </form>
+                <form action="/updateUserList" method="POST">
+                <input type="hidden" name="broadcast" value="<%= animeList[anime].broadcast %>" />
+                <input type="hidden" name="title" value="<%= animeList[anime].title %>" />
+                <input type="hidden" name="image_url" value="<%= animeList[anime].image_url %>" />
+                <input type="hidden" name="mal_id" value="<%= animeList[anime].mal_id %>" />
+                <input type="hidden" name="user_id" value="<%= localStorage.getItem("userid")%>" />
+                <!--  -->
+
+                <input type="hidden" name="option" value="is_watched" />
+                <button type="submit">delete</button>
+            </form>
+                <% } %> <% } %>
+            </section>
+            <!-- xxx watched xxx -->
+            <!-- --- following --- -->
+            <section class="following">
+                <h2>following</h2>
+                <% for( let anime = 0; anime < animeList.length; anime++ ) { %>
+                <% if (animeList[anime].following) { %>
+                <form action="/details/<%= animeList[anime].mal_id %>">
+                    <button type="submit">
+                        <img id="random-img" src="<%= animeList[anime].image_url %>" alt="random.jpg" />
+                    </button>
+                    <h2><%= animeList[anime].title %></h2>
+                </form>
+                <form action="/updateUserList" method="POST">
+                <input type="hidden" name="broadcast" value="<%= animeList[anime].broadcast %>" />
+                <input type="hidden" name="title" value="<%= animeList[anime].title %>" />
+                <input type="hidden" name="image_url" value="<%= animeList[anime].image_url %>" />
+                <input type="hidden" name="mal_id" value="<%= animeList[anime].mal_id %>" />
+                <input type="hidden" name="user_id" value="<%= localStorage.getItem("userid")%>" />
+                <!--  -->
+                <input type="hidden" name="option" value="following" />
+                <button type="submit">delete</button>
+            </form>
+                <% } %> <% } %>
+            </section>
+            <!-- xxx following xxx -->
+    </main>
+    </section>
+</body>
+
+</html>
