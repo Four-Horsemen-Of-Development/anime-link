@@ -1,0 +1,34 @@
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(277px, 1fr));
+    gap: 30px;
+}
+.row .col {
+    width: 220px;
+    height: 100%;
+    display: flex;
+}
+
+/* .row .col + .col {
+    margin-left: 30px;
+} */
+.col img {
+    width: 100%;
+    height: 300px;
+}
+.row .col h2 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 160px;
+    height: 1.2em;
+    white-space: nowrap;
+}
+
+.col button {
+    padding: 0;
+    border: none;
+}
