@@ -2,7 +2,7 @@
 body{
     background: url(http://estudiopatagon.com/themes/wordpress/reinv5/wp-content/uploads/2019/08/bg-body-op-1.jpg) no-repeat top center fixed !important; ;
     font-family: 'Playfair Display', serif;
-    color: wheat;
+    color: rgb(220, 220, 200);
 
 }
 
@@ -15,8 +15,8 @@ body{
 }
 .padding {
     box-sizing: border-box;
-    padding: 30px;
-   ;
+    padding: 80px;
+   
 }
 
 

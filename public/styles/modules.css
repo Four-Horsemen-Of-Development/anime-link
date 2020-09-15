@@ -34,9 +34,9 @@ option{
  
 }
 
-button:not(#searchButton) ,button:not(#searchButton) img{
+button.detailsBtn{
     border-radius: 3px;
-    background-color:  #2c2048;
+    background-color:  #2c20481f;
 }
 .feature{
     padding: 70px 60px;

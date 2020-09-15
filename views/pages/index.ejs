@@ -25,11 +25,11 @@
     
             <% } %>
         </section>
-        <section class="d-flex justify-around ">
+        <!-- <section class="d-flex justify-around ">
             <div class="feature">SEARCH for animes</div>
             <div class="feature">KEEP TRACK of your favourite animes</div>
             <div class="feature">'PLACEHOLDER'</div>
-        </section>
+        </section> -->
     </section>
     <main class="colorback">
         <div class="container">
@@ -41,7 +41,7 @@
                 <% animeArr.forEach((item)=>{%>
                 <div>
                     <form id="searched-form" action="/details/<%= item.id%>" class="col">
-                        <button type="submit">
+                        <button type="submit" class="detailsBtn">
                             <img src="<%= item.image_url%>" style="max-width: 100%;">
                             <h2><%= item.title%></h2>
                         </button>
@@ -49,7 +49,6 @@
                 </div>
                 <% })%>
             </section>
-            <hr>
             <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="rotate quote">
             <section class="quoteSec padding">
                 <p><span><%= quote.anime%> <%= quote.character%></span></p>
@@ -57,14 +56,12 @@
             </section>
             <div class="quoteClose">
                 <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="quote">
-    
-                <hr>
             </div>
+            <hr>
+            <p class="bannerText">Top Anime</p>
 
             <section id="topAnimes" class="padding">
-
                 <canvas id="topAnimesChart" width="800" height="450">
-        
                 </canvas>
             </section>
         </div>

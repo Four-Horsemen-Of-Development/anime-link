@@ -61,17 +61,38 @@ function getTopAnime(){
                 datasets: [
                     {
                         label: "Population (millions)",
-                        backgroundColor: "#2c2048",
-                        data: topAnimeArr.map((item)=>{return item.members})
+                        backgroundColor: "#E58A96",
+                        data: topAnimeArr.map((item)=>{return item.members}),
                     }
                 ]
             },
             options: {
-                legend: { display: false },
+                legend: { display: false ,
+                    labels:{
+                        fontColor : "white"
+                    }
+                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Top 10 Animes'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            fontColor: "white",
+                            fontSize: 18,
+                            stepSize: 1,
+                            beginAtZero: true
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontColor: "white",
+                            fontSize: 14,
+                        }
+                    }]
                 }
+                
             }
         })
         
