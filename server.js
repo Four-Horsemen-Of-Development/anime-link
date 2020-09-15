@@ -19,14 +19,14 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./public"));
 
-app.get('/', mainHandler);
-app.get('/login', loginHandler)
-app.post('/signup', signupHandler);
-app.post('/signin', signinHandler);
-app.get('/logout', logoutHandler);
-app.get('/quote', quoteHandler);
-app.get('/search', searchRender)
-app.post('/searchShow', searchHandler)
+app.get("/", mainHandler);
+app.get("/login", loginHandler);
+app.post("/signup", signupHandler);
+app.post("/signin", signinHandler);
+app.get("/logout", logoutHandler);
+app.get("/quote", quoteHandler);
+app.get("/search", searchRender);
+app.post("/searchShow", searchHandler);
 
 app.get("/random", (req, res) => {
     res.render("./pages/random-animes");
@@ -52,7 +52,7 @@ app.get("/details/:id", (req, res) => {
         let anime = new Anime(body);
         let recomndetionUrl = `https://api.jikan.moe/v3/anime/${req.params.id}/recommendations`;
         let { body: result } = await superAgent.get(recomndetionUrl);
-        console.log(result);
+        // console.log(result);
         // res.send(result.recommendations);
         res.render("./pages/details", { anime, localStorage, result });
     });
@@ -211,62 +211,63 @@ function quoteHandler(req, res) {
 }
 
 function searchRender(req, res) {
-    res.render('pages/search')
+    res.render("pages/search");
 }
 
 function searchHandler(req, res) {
     let { searchQuery, genre, rated, status } = req.body;
-    let url = `https://api.jikan.moe/v3/search/anime?q=${searchQuery}${genre}${rated}${status}&limit=30`
-    superAgent.get(url)
-        .then(result => {
-            console.log(result.body);
-        })
+    let url = `https://api.jikan.moe/v3/search/anime?q=${searchQuery}${genre}${rated}${status}&limit=30`;
+    superAgent.get(url).then((result) => {
+        console.log(result.body);
+    });
 }
-
 
 function mainHandler(req, res) {
     let date = new Date();
     let season = getSeason(date);
-    let url=`https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
-    superAgent(url).then((result)=>{
-        let animeArr = [];
-        for (let i = 0; i < 8; i++) {
-            animeArr.push({title: result.body.anime[i].title,
-                image_url: result.body.anime[i].image_url,
-                id: result.body.anime[i].mal_id
-            })
-        }
+    let url = `https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
+    superAgent(url)
+        .then((result) => {
+            let animeArr = [];
+            for (let i = 0; i < 8; i++) {
+                animeArr.push({
+                    title: result.body.anime[i].title,
+                    image_url: result.body.anime[i].image_url,
+                    id: result.body.anime[i].mal_id,
+                });
+            }
 
-        res.render("pages/index",{
-            animeArr : animeArr ,
-            localUsername: localStorage.getItem("username"),
+            res.render("pages/index", {
+                animeArr: animeArr,
+                localUsername: localStorage.getItem("username"),
+            });
+        })
+        .catch(() => {
+            res.send("did not work");
         });
-    }).catch(()=>{
-        res.send("did not work");
-    })
 }
 
-function getSeason(date){
-    switch (date.getMonth()){
-        case 3 :
-        case 4 :
-        case 5 :
-            return 'spring';
+function getSeason(date) {
+    switch (date.getMonth()) {
+        case 3:
+        case 4:
+        case 5:
+            return "spring";
             break;
-        case 6 :
-        case 7 :
-        case 8 :
-            return 'summer';
+        case 6:
+        case 7:
+        case 8:
+            return "summer";
             break;
-        case 9 :
-        case 10 :
-        case 11 :
-            return 'autumn';
+        case 9:
+        case 10:
+        case 11:
+            return "autumn";
             break;
-        case 0 :
-        case 1 :
-        case 2 :
-            return 'winter';
+        case 0:
+        case 1:
+        case 2:
+            return "winter";
             break;
     }
 }
@@ -283,7 +284,6 @@ function logoutHandler(req, res) {
     localStorage.clear();
     res.redirect("/");
 }
-
 
 client.connect().then(() => {
     app.listen(PORT, () => console.log(`listening on ${PORT}`));
