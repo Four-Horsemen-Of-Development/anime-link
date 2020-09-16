@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login|Signup</title>
     <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+
 </head>
+<%- include('../layouts/nav') %>
 
 <body>
+    <main>
     <!-- <div class="login-container">
         <div class="login-form-wrap" style="display: none;">
             <section>
@@ -34,38 +38,21 @@
     </div> -->
 
     <div>
-        <div class="error-message">
+        <div class="error-message container">
             <p><%=message%></p>
         </div>
         <div class="login-container d-flex">
             <div class="login-form-wrap">
-                <form class="width100 justify-between flex-wrap d-flex " action="/signup" method="POST">
+                <form class="width100 justify-between flex-wrap " action="/signup" method="POST">
                     <span class="login-form-title">
-                        New user? Sign up!
+                        Sign up!
                     </span>
-
-
-                    <div class="label-container">
-                        <span class="text1">
-                            Username
-                        </span>
-                    </div>
                     <div class="wrap-input">
                         <input required class="login-input" type="text" name="userName" placeholder="Username">
-                    </div>
-                    <div class="label-container">
-                        <span class="text1">
-                            Password
-                        </span>
                     </div>
                     <div class="wrap-input">
                         <input required class="login-input" type="password" name="password" placeholder="***********"
                             minlength="6">
-                    </div>
-                    <div class="label-container">
-                        <span class="text1">
-                            Type your Password again
-                        </span>
                     </div>
                     <div class="wrap-input">
                         <input required class="login-input" type="password" name="passwordValidate"
@@ -80,24 +67,12 @@
             </div>
             <div class="login-form-wrap">
 
-                <form class="width100 justify-between flex-wrap d-flex" action="/signin" method="POST">
+                <form class="width100 justify-between flex-wrap" action="/signin" method="POST">
                     <span class="login-form-title">
-                        Already a user? Sign in!
+                        Sign in!
                     </span>
-
-
-                    <div class="label-container">
-                        <span class="text1">
-                            Username
-                        </span>
-                    </div>
                     <div class="wrap-input">
                         <input required class="login-input" type="text" name="userName" placeholder="Username">
-                    </div>
-                    <div class="label-container">
-                        <span class="text1">
-                            Password
-                        </span>
                     </div>
                     <div class="wrap-input">
                         <input required class="login-input" type="password" name="password" placeholder="***********"
@@ -113,6 +88,8 @@
 
         </div>
     </div>
+    </main>
+    <%- include('../layouts/footer') %>
 </body>
 
 </html>
