@@ -83,7 +83,22 @@ header nav button:hover {
     gap: 30px;
     padding-left: 20px;
 }
+/* .gif{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    position: absolute;
+    opacity: 0.5;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+} */
+    
 
+
+/* .gif img{
+    width: 100%;
+} */
 /* add to forms button */
 .add-anime-to {
     padding: 5em;
