@@ -70,6 +70,9 @@ header nav button:hover {
     transform: translateY(-5px);
 }
 /* anime */
+form.anime{
+    grid-row: 1/ span 2;
+}
 .anime button {
     background-color: transparent;
     border: none;
@@ -77,6 +80,7 @@ header nav button:hover {
 .anime img {
     width: 290px;
     height: 450px;
+
 }
 .anime .title {
     margin-top: 10px;
@@ -126,16 +130,15 @@ header nav button:hover {
 }
 /* random anime */
 .generated-anime {
-    padding: 8rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 3rem;
+    display: grid;
+    flex-direction: row;
+    align-items: start;
     justify-content: center;
 }
-/* .generated-anime img {
-    width: 300px;
-    height: 300px;
-} */
+.rightRandom h2{
+    max-width: 400px;
+}
 /* footer */
 footer {
     padding: 1em;

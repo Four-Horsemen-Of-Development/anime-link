@@ -13,6 +13,8 @@
     font-weight: 600;
     border: none;
     transition: 300ms all ease-in-out;
+    grid-column: 2;
+    max-width: max-content;
 }
 .btn:hover {
     background-color: var(--main-color);
@@ -38,7 +40,7 @@
 
 #searchForm {
     box-sizing: border-box;
-    padding: 8%;
+    padding: 5%;
     margin: 0 auto;
 }
 .fullWidth {
@@ -128,9 +130,7 @@ button.detailsBtn {
     color: rgb(220, 220, 200);
     text-transform: capitalize;
 }
-.indexButtons:active,
-.indexButtons:visited {
-    font-family: "Playfair Display", serif;
+.indexButtons:active, .indexButtons:visited{
     color: white;
 }
 .indexButtons:hover {
@@ -316,6 +316,7 @@ main {
 .notifications button.reminder:hover {
     color: var(--main-color);
 }
+
 .col h2 {
     margin-bottom: 20px;
 }
