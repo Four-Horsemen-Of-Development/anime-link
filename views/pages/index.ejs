@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,23 +11,18 @@
     <link rel="stylesheet" href="../../styles/main.css" />
     <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick-theme.css" />
-    
 </head>
-
 <body>
     <%- include('../layouts/nav') %>
-
     <section class="banner container">
         <section id="banner" class="padding">
             <% if(localUsername != null){%>
             <p class="bannerText">Welcome Back</p>
             <p class="smallerBannerText">Go to your Anime Collection</p>
             <a href="/user_list" class="indexButtons">User panel</a>
-
             <%}else {%>
             <p class="bannerText">Sign up for free</p>
             <a href="/login" class="indexButtons">SIGN UP</a>
-    
             <% } %>
         </section>
         <!-- <section class="d-flex justify-around ">
@@ -41,9 +35,7 @@
         <div class="container">
             <hr>
             <p class="bannerText">Seasonal Anime</p>
-
             <section id='seasonal' class="row padding" >
-
                 <% animeArr.forEach((item)=>{%>
                 <div>
                     <form id="searched-form" action="/details/<%= item.id%>" class="col">
@@ -59,14 +51,12 @@
             <section class="quoteSec padding">
                 <p><%= quote.quote%></p>
                 <p><span> - <%= quote.character%> <br> <%= quote.anime%></span></p>
-
             </section>
             <div class="quoteClose">
                 <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="quote">
             </div>
             <hr>
             <p class="bannerText">Top Anime</p>
-
             <section id="topAnimes" class="padding">
                 <canvas id="topAnimesChart" width="800" height="450">
                 </canvas>
@@ -79,8 +69,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="./js/indexSlider.js"></script>
     <script>
-
     </script>
 </body>
-
 </html>
