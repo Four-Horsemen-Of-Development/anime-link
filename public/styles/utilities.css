@@ -14,6 +14,11 @@
 .justify-between {
     justify-content: space-between;
 }
+.justify-around {
+    justify-content: space-around;}
+.justify-center {
+    justify-content: center;
+}
 .flex-column {
     flex-direction: column;
 }
@@ -22,6 +27,9 @@
 }
 .align-center {
     align-items: center;
+}
+.flex-wrap {
+    flex-wrap: wrap;
 }
 /* position */
 .relative {
@@ -61,4 +69,10 @@
 .spacing > * + * {
     margin: 0;
     margin-top: 20px;
+}
+
+/* ul none */
+.ul-none {
+    padding: 0;
+    list-style: none;
 }

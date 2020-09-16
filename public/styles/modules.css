@@ -1,0 +1,227 @@
+:root {
+    --main-color: #e85d6f;
+    --main-color-o: rgba(232, 93, 111, 0.7);
+    --white: rgb(220, 220, 200);
+}
+.btn {
+    font-size: 14px;
+    padding: 12px 36px;
+    background-color: var(--main-color-o);
+
+    color: #f1f1f1;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    transition: 300ms all ease-in-out;
+}
+.btn:hover {
+    background-color: var(--main-color);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+
+.inlineBlock{
+    display: inline-block;
+}
+.searchOptionsGrid{
+    display: grid;
+    grid-column: 1;    
+    gap: 15px;
+    width: 50%;
+}
+
+#searchForm{
+    box-sizing: border-box;
+    padding: 8%;
+    margin: 0 auto;
+}
+.fullWidth{
+    width: 97%;
+    box-sizing: border-box;
+}
+
+.thirds{
+    width: 31.5%;
+}
+option,select,button#searchButton{
+    box-sizing: border-box;
+    background-color: #E85D6F;
+    padding: 5px;
+    border: none;
+    border: 1px solid #b990c9;
+}
+option{
+    background-color: #d4d4d4;
+ 
+}
+
+button.detailsBtn{
+    border-radius: 3px;
+    background-color:  #2c20481f;
+}
+.feature{
+    padding: 70px 60px;
+    background-color:  #2c2048;
+    flex-grow: 1;
+    margin: 0 6%;
+    flex-basis: 50%;
+    border-radius: 3px;
+
+}
+.tabs{
+    display: inline-block;
+    width:max-content;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+.tabs:hover{
+    color: white;
+}
+.active{
+    border: 1px solid black;
+}
+.bannerText{
+    font-size: 50px;
+}
+#banner{
+    margin: 80px 0px;
+}
+.indexButtons{
+    padding: 10px 20px;
+    border: 2px solid #E85D6F;
+    text-decoration: none;
+    border-radius: 3px;
+
+}
+.indexButtons:active, .indexButtons:visited{
+    font-family: 'Playfair Display', serif;
+    color: white;
+
+}
+.rotate{
+    transform: rotate(180deg);
+}
+.quote{
+    display: inline-block;
+    width:60px;
+}
+.quoteClose{
+    text-align: right;
+}
+.quoteClose hr{
+    margin-top: 0px;}
+
+.error-message{
+    color:var(--main-color);
+}
+.login-container {
+    /* height: 600px; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form-wrap {
+    min-height: 350px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.863);
+    border-radius: 10px;
+    position: relative;
+    padding: 20px 100px 20px 100px;
+    margin: 30px;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.login-form-title {
+    width: 100%;
+    display: block;
+    font-size: 24px;
+    color: #555555;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.text1 {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    color: #555555;
+    line-height: 1.5;
+}
+
+.text2 {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    color: #999999;
+    line-height: 1.5;
+}
+
+.wrap-input{
+    width: 100%;
+    position: relative;
+    background-color: #f7f7f7;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px; 
+    margin:20px auto 20px auto;
+}
+
+.login-input{
+    color: #333333;
+    line-height: 1.2;
+    font-size: 16px;
+  
+    display: block;
+    width: 100%;
+    background: transparent;
+    height: 45px;
+    padding: 0 20px;
+    outline: none;
+    border: none;
+}
+
+.login-form-button-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.login-form-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    width: 75%;
+    height: 45px;
+    background-color:var(--main-color);
+    border-radius: 10px;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+}
+
+.label-container{
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+
+.login-button-second{
+    background-color: var(--main-color);
+    margin-top: 15px;
+}
+
+.slick-dots{
+    position: static; 
+}
