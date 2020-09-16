@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>details</title>
-    </head>
-    <body>
-        <header>
-            <nav>nav</nav>
-        </header>
-        <main>
-            <article class="details">
-                <section>
-                    <img
-                        src="<%= anime.image_url %> "
-                        alt="<%= anime.title %>"
-                    />
-                    <section class="description">
-                        <h2><% anime.title %></h2>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../styles/main.css" />
+</head>
+
+<body>
+        <%- include('../layouts/nav') %>
+    <main>
+        <article class="details">
+            <div class="container">
+                <section class="description d-flex flex-wrap">
+                    <img src="<%= anime.image_url %> " alt="<%= anime.title %>" />
+                    <section>
+                        <% console.log(anime.title) %>
+                        <h2><%= anime.title %></h2>
                         <p><%= anime.description %></p>
                     </section>
                 </section>
-                <section class="sub-description">
-                    <% console.log(localStorage) %>
+            </div>
+            </section>
+            <section class="sub-description">
+                <div class="container">
                     <div>
-                        <h2 class="title">Information</h2>
+
                         <ul>
                             <li>episodes: <%= anime.episodes %></li>
                             <li>genres: <%= anime.genres %></li>
@@ -32,51 +35,45 @@
                             <li>aired: <%= anime.aired %></li>
                             <li>duration: <%= anime.duration %></li>
                             <li>rating: <%= anime.rating %></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h2 class="title">rating</h2>
-
-                        <ul>
                             <li>score: <%= anime.score %></li>
-                            <li>scored by: <%= anime.scored_by %></li>
-                            scored_by
                             <li>popularity: <%= anime.popularity %></li>
                             <li>rank: <%= anime.rank %></li>
                         </ul>
                     </div>
-                </section>
-                <section class="add-anime-to">
-                    <% if (localStorage.getItem("userid")!==null ){ %>
 
+                </div>
+            </section>
+            <section class="add-anime-to">
+                <div class="container d-flex justify-center">
+
+                    <% if (localStorage.getItem("userid")!==null ){ %>
+                    <!-- --- favorite --- -->
                     <form action="/updateUserList" method="POST">
                         <%- include('../layouts/anime_inputs') %>
                         <!--  -->
 
-                        <input
-                            type="hidden"
-                            name="option"
-                            value="is_favorite"
-                        />
+                        <input type="hidden" name="option" value="is_favorite" />
                         <button type="submit">favorite</button>
                     </form>
+                    <!-- xxx favorite xxx -->
+                    <!-- --- is_watching --- -->
                     <form action="/updateUserList" method="POST">
                         <%- include('../layouts/anime_inputs') %>
                         <!--  -->
 
-                        <input
-                            type="hidden"
-                            name="option"
-                            value="is_watching"
-                        />
+                        <input type="hidden" name="option" value="is_watching" />
                         <button type="submit">watching</button>
                     </form>
+                    <!-- xxx is_watching xxx -->
+                    <!-- --- is_watched --- -->
                     <form action="/updateUserList" method="POST">
                         <%- include('../layouts/anime_inputs') %>
                         <!--  -->
                         <input type="hidden" name="option" value="is_watched" />
                         <button type="submit">watched</button>
                     </form>
+                    <!-- xxx is_watched xxx -->
+                    <!-- --- following --- -->
                     <% if (anime.airing) { %>
                     <form action="/updateUserList" method="POST">
                         <%- include('../layouts/anime_inputs') %>
@@ -86,25 +83,12 @@
                     </form>
 
                     <% } %> <% } %>
-                </section>
-                <section class="recomindition">
-                    <% for( let index = 0; index < 4; index++ ) { %> <% if
-                    (result.recommendations[index] !== undefined) { %>
-                    <form
-                        action="/details/<%= result.recommendations[index].mal_id %>"
-                    >
-                        <button type="submit">
-                            <img
-                                id="random-img"
-                                src="<%= result.recommendations[index].image_url%>"
-                                alt="random.jpg"
-                            />
-                            <h2><%= result.recommendations[index].title%></h2>
-                        </button>
-                    </form>
-                    <% } %> <% } %>
-                </section>
-            </article>
-        </main>
-    </body>
+                    <!-- xxx following xxx -->
+                </div>
+            </section>
+        </article>
+    </main>
+    <%- include('../layouts/footer') %>
+</body>
+
 </html>
