@@ -38,7 +38,7 @@
         <!-- xxx favourites xxx -->
         <!-- xxx watching xxx -->
         <section class="watching">
-            <h2>watching</h2>
+            <h2>watching</h2>updateUserList
             <% for( let anime = 0; anime < animeList.length; anime++ ) { %> <%
             if (animeList[anime].is_watching) { %>
             <form action="/details/<%= animeList[anime].mal_id %>">
@@ -47,7 +47,7 @@
                 </button>
                 <h2><%= animeList[anime].title %></h2>
             </form>
-            <form action="/updateUserList" method="POST">
+            <form action="/" method="POST">
                 <input type="hidden" name="broadcast" value="<%= animeList[anime].broadcast %>" />
                 <input type="hidden" name="title" value="<%= animeList[anime].title %>" />
                 <input type="hidden" name="image_url" value="<%= animeList[anime].image_url %>" />

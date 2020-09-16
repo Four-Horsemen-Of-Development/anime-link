@@ -41,6 +41,7 @@ app.get("/user_list", (req, res) => {
             `;
     client.query(getList, safeValue).then(({ rows }) => {
         res.render("./pages/userlist", { animeList: rows, localStorage });
+     
     });
     // res.render("./pages/random-animes");
 });
@@ -124,7 +125,9 @@ function updateAnimeInlist(req) {
                         `;
                 client
                     .query(update, updateSafeValues)
-                    .then()
+                    .then(data=>{
+                        response.redirect(request.get('referer'));
+                    })
                     .catch((error) => {
                         console.log(error);
                     });
