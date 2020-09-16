@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap');
 @import "./reset.css";
 @import "./base.css";
 @import "./layout.css";
@@ -24,20 +26,34 @@ a {
 }
 a:hover {
     text-decoration: none;
-    color: var(--main-color);
+    color: white;
+    /* color: var(--main-color); */
 }
+a:focus {
+    border-bottom: var(--main-color) 1px solid;
+}
+
 input {
     color: var(--main-color);
 }
 /* header */
 header {
     padding: 1em 0;
+    font-family: 'Kumbh Sans', sans-serif;
 }
 header .logo {
     text-align: center;
 }
 header nav .nav-links li + li {
-    margin-left: 20px;
+    margin-left: 70px;
+}
+header nav ul {
+    margin: 0;
+    height: 100%;
+    align-items: baseline;
+}
+header div.container{
+    align-items: baseline;
 }
 header nav button {
     border-radius: 50%;

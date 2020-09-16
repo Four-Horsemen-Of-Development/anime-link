@@ -21,8 +21,9 @@
 * {
     box-sizing: border-box;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+#logo{
+    width: 70px;
+}
 
 .inlineBlock{
     display: inline-block;
