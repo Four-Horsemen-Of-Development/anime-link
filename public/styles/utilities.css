@@ -70,3 +70,9 @@
     margin: 0;
     margin-top: 20px;
 }
+
+/* ul none */
+.ul-none {
+    padding: 0;
+    list-style: none;
+}
