@@ -134,7 +134,9 @@ function updateAnimeInlist(req) {
                         `;
                 client
                     .query(update, updateSafeValues)
-                    .then()
+                    .then(data=>{
+                        response.redirect(request.get('referer'));
+                    })
                     .catch((error) => {
                         console.log(error);
                     });
