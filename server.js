@@ -29,7 +29,7 @@ app.get("/search", searchRender);
 app.post("/searchShow", searchHandler);
 
 app.get("/random", (req, res) => {
-    res.render("./pages/random-animes");
+    res.render("./pages/random-animes", { localStorage });
 });
 app.get("/user_list", (req, res) => {
     let safeValue = [localStorage.getItem("userid")];

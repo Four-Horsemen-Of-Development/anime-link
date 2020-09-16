@@ -1,9 +1,67 @@
+@import "./reset.css";
 @import "./layout.css";
 @import "./utilities.css";
-
+@import "./modules.css";
+:root {
+    --main-color: #e85d6f;
+    --white: rgb(220, 220, 200);
+}
 html {
     font-size: 18px;
     line-height: 1.4;
+}
+body {
+    background: url("../images/bg.jpeg") no-repeat top center fixed !important;
+    background-size: cover !important;
+    color: var(--white);
+}
+a {
+    color: var(--white);
+    transition: all 300ms ease-in-out;
+}
+a:hover {
+    text-decoration: none;
+    color: var(--main-color);
+}
+input {
+    color: var(--main-color);
+}
+/* header */
+header {
+    padding: 1em 0;
+}
+header .logo {
+    text-align: center;
+}
+header nav .nav-links li + li {
+    margin-left: 20px;
+}
+header nav button {
+    border-radius: 50%;
+    background-color: var(--main-color);
+    color: var(--white);
+    border: none;
+    margin-left: 10px;
+    transition: 50ms all ease-in-out;
+}
+header nav button::placeholder {
+    background-color: var(--white);
+}
+header nav button:hover {
+    transform: translateY(-5px);
+}
+/* anime */
+.anime button {
+    background-color: transparent;
+    border: none;
+}
+.anime img {
+    width: 290px;
+    height: 450px;
+}
+.anime .title {
+    margin-top: 10px;
+    color: var(--white);
 }
 /* --- main description --- */
 .description img {
@@ -31,5 +89,45 @@ html {
 .add-anime-to form + form {
     margin-left: 10px;
 }
-.add-anime-to form button {
+/* random anime */
+.generated-anime {
+    padding: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+/* .generated-anime img {
+    width: 300px;
+    height: 300px;
+} */
+/* footer */
+footer {
+    padding: 3em;
+    background-color: #362953;
+}
+footer .follow-us i {
+    color: #0e76a8;
+    display: inline-block;
+    margin-left: 10px;
+}
+footer .follow-us ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 10px;
+}
+footer .follow-us h3 {
+    font-size: 1.5rem;
+}
+footer section:first-of-type .follow-us {
+    flex-basis: 30%;
+}
+footer section:first-of-type .about-us {
+    flex-basis: 70%;
+}
+footer .powered-by {
+    padding: 1em 0;
+}
+footer .powered-by a {
+    color: var(--main-color);
 }
