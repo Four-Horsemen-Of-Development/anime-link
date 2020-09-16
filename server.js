@@ -59,11 +59,11 @@ app.get("/details/:id", (req, res) => {
 
     superAgent.get(url).then(async ({ body }) => {
         let anime = new Anime(body);
-        let recomndetionUrl = `https://api.jikan.moe/v3/anime/${req.params.id}/recommendations`;
-        let { body: result } = await superAgent.get(recomndetionUrl);
+        // let recomndetionUrl = `https://api.jikan.moe/v3/anime/${req.params.id}/recommendations`;
+        // let { body: result } = await superAgent.get(recomndetionUrl);
         // console.log(result);
         // res.send(result.recommendations);
-        res.render("./pages/details", { anime, localStorage, result });
+        res.render("./pages/details", { anime, localStorage});
     });
 });
 
@@ -158,7 +158,7 @@ function insertAnimeList(req) {
         });
 }
 app.get("/notification", async (req, res) => {
-    let getnotification = `select * from useranime ua
+    let getnotification = `select a.title,a.image_url,a.mal_id from useranime ua
     JOIN users as u on u.user_id = ua.user_id
     JOIN animes as a on a.mal_id = ua.mal_id
     where ua.following = true and  trim(to_char(current_timestamp, 'DAY'))  = a.broadcast
@@ -177,11 +177,11 @@ function signupHandler(req, res) {
         if (results.rowCount > 0) {
             console.log(""); //TODO: add alerts
             let message = "Username already exists."
-            res.render("pages/login", { message, message });
+            res.render("pages/login", { message, localStorage });
         } else {
             if (password != passwordValidate) {
                 let message = "Passwords don\'t match."
-                res.render("pages/login", { message, message });
+                res.render("pages/login", { message, localStorage });
             }
             else {
                 let safeValues2 = [userName, password];
@@ -189,7 +189,7 @@ function signupHandler(req, res) {
                     "insert into users (username ,password) values ($1 , $2);";
                 client.query(sql2, safeValues2).then(() => {
                     let message = "Sign-Up Successful! Please sign in."
-                    res.render("pages/login", { message, message });
+                    res.render("pages/login", { message, localStorage });
                 })
             };
         }
@@ -217,13 +217,13 @@ function signinHandler(req, res) {
                     }
                     else {
                         let message = "Wrong password."
-                        res.render("pages/login", { message, message });
+                        res.render("pages/login", { message, localStorage });
                     }
                 })
 
         } else {
             let message = "Username does not exist."
-            res.render("pages/login", { message, message });
+            res.render("pages/login", { message, localStorage });
         }
     });
 }
@@ -261,7 +261,7 @@ function quoteHandler() {
 }
 
 function searchRender(req, res) {
-    res.render("pages/search");
+    res.render("pages/search",{localStorage});
 }
 
 function searchHandler(req, res) {
@@ -290,6 +290,7 @@ function mainHandler(req, res) {
                 animeArr : animeArr ,
                 localUsername: localStorage.getItem("username"),
                 quote : results.body.data[0],
+                localStorage
             });
 
         });
@@ -328,7 +329,7 @@ function loginHandler(req, res) {
     if (localStorage.getItem("username") != null) {
         res.redirect("/");
     } else {
-        res.render("pages/login", { message, message });
+        res.render("pages/login", { message, localStorage });
     }
 }
 function logoutHandler(req, res) {

@@ -5,11 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../../styles/main.css" />
 
 </head>
 
 <body>
+    <%- include('../layouts/nav') %>
     <main class="container text-center">
         <div class="padding">
             <a class="tabs" id="fave" href="#faveSec">favourites</a>
@@ -143,6 +145,7 @@
         </section>
         <!-- xxx following xxx -->
     </main>
+    <%- include('../layouts/footer') %>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./js/userPanel.js"></script>
 </body>

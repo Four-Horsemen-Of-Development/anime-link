@@ -1,0 +1,28 @@
+<header>
+    <div class="container">
+        <!-- <a href="/" class="logo">
+            <h1>anime</h1>
+        </a> -->
+        <nav class="d-flex justify-between">
+            <ul class="nav-links d-flex ul-none">
+                <li><a href="/">Home</a></li>
+                <li><a href="/random">Random Anime</a></li>
+                <li><a href="/search">Search</a></li>
+                <% if (localStorage.getItem("userid")!==null) { %>
+
+                <li><a href="/user_list">your list</a></li>
+                <li><a href="/logout">log out</a></li>
+                <% }else{ %>
+
+                <li><a href="/login">login</a></li>
+                <%} %>
+            </ul>
+            <form class="d-flex align-center">
+                <input type="text" placeholder="search" />
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </nav>
+    </div>
+</header>
