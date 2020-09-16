@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans&display=swap");
 @import "./reset.css";
 @import "./base.css";
 @import "./layout.css";
@@ -37,7 +37,8 @@ input {
     color: var(--main-color);
 }
 /* header */
-header, .smallerBannerText{
+header,
+.smallerBannerText {
     padding: 1em 0;
 }
 header .logo {
@@ -51,7 +52,7 @@ header nav ul {
     height: 100%;
     align-items: baseline;
 }
-header div.container{
+header div.container {
     align-items: baseline;
 }
 header nav button {
@@ -91,18 +92,34 @@ header nav button:hover {
     padding-left: 2%;
 }
 /* xxx main description xxx */
-
+.sub-description {
+    padding: 30px;
+    padding-top: 50px;
+}
 .sub-description ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(362px, 1fr));
     gap: 30px;
     padding-left: 20px;
 }
+/* .gif{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    position: absolute;
+    opacity: 0.5;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+} */
 
+/* .gif img{
+    width: 100%;
+} */
 /* add to forms button */
 .add-anime-to {
-    padding: 5em;
     font-size: 18px;
+    justify-content: flex-end;
 }
 .add-anime-to form + form {
     margin-left: 10px;
