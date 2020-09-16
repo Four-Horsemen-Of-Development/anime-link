@@ -41,15 +41,12 @@
                         </button>
                     </form>
                 </div>
-                <% })%>
-            </section>
-            <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="rotate quote">
-            <section class="quoteSec padding">
-                <p><%= quote.quote%></p>
-                <p><span> - <%= quote.character%> <br> <%= quote.anime%></span></p>
-            </section>
-            <div class="quoteClose">
-                <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="quote">
+                <hr />
+                <p class="bannerText">Top Anime</p>
+                <section id="topAnimes" class="padding">
+                    <canvas id="topAnimesChart" width="800" height="450">
+                    </canvas>
+                </section>
             </div>
             <hr>
             <p class="bannerText">Top Anime</p>
@@ -69,3 +66,4 @@
     </script>
 </body>
 </html>
+

@@ -1,4 +1,3 @@
-
 "use strict";
 require("dotenv").config();
 
@@ -10,7 +9,7 @@ const pg = require("pg");
 const client = new pg.Client(process.env.DATABASE_URL);
 const methodOverRide = require("method-override");
 const { log, error } = require("console");
-let message = ''
+let message = "";
 let localStorage = null;
 if (typeof localStorage === "undefined" || localStorage === null) {
     var LocalStorage = require("node-localstorage").LocalStorage;
@@ -53,7 +52,6 @@ app.get("/user_list", async (req, res) => {
         });
         // res.render("./pages/random-animes");
     }
-
 });
 
 app.get("/details/:id", async (req, res) => {
@@ -67,6 +65,7 @@ app.get("/details/:id", async (req, res) => {
         // console.log(result);
         // res.send(result.recommendations);
         res.render("./pages/details", { anime, localStorage, notifications,localUsername: localStorage.getItem("username")});
+
     });
 });
 
@@ -92,7 +91,6 @@ function Anime(anime) {
     this.scored_by = anime.scored_by;
 }
 app.post("/updateUserList", (req, res) => {
-
     let safeValuesOfAnime = [
         req.body.mal_id,
         req.body.title,
@@ -105,11 +103,11 @@ app.post("/updateUserList", (req, res) => {
         .then(({ rows }) => {
             // console.log(rows);
             updateAnimeInlist(req);
-            res.redirect(req.get('referer'));
+            res.redirect(req.get("referer"));
         })
         .catch((error) => {
             updateAnimeInlist(req);
-            res.redirect(req.get('referer'));
+            res.redirect(req.get("referer"));
         });
 });
 
@@ -137,7 +135,9 @@ function updateAnimeInlist(req) {
                         `;
                 client
                     .query(update, updateSafeValues)
-                    .then()
+                    .then((data) => {
+                        response.redirect(request.get("referer"));
+                    })
                     .catch((error) => {
                         console.log(error);
                     });
@@ -154,7 +154,7 @@ function insertAnimeList(req) {
     client
         .query(insertIntoAnimeList, safeValuesOfList)
         .then((result) => {
-            console.log('insert');
+            console.log("insert");
         })
         .catch((error) => {
             console.log(error);
@@ -179,22 +179,21 @@ function signupHandler(req, res) {
     client.query(sql, safeValues).then((results) => {
         if (results.rowCount > 0) {
             console.log(""); //TODO: add alerts
-            let message = "Username already exists."
+            let message = "Username already exists.";
             res.render("pages/login", { message, localStorage });
         } else {
             if (password != passwordValidate) {
-                let message = "Passwords don\'t match."
+                let message = "Passwords don't match.";
                 res.render("pages/login", { message, localStorage });
-            }
-            else {
+            } else {
                 let safeValues2 = [userName, password];
                 let sql2 =
                     "insert into users (username ,password) values ($1 , $2);";
                 client.query(sql2, safeValues2).then(() => {
-                    let message = "Sign-Up Successful! Please sign in."
+                    let message = "Sign-Up Successful! Please sign in.";
                     res.render("pages/login", { message, localStorage });
-                })
-            };
+                });
+            }
         }
     });
 }
@@ -202,30 +201,27 @@ function signinHandler(req, res) {
     let { userName, password } = req.body;
     userName = userName.toLocaleLowerCase();
     let safeValues = [userName];
-    let sql =
-        "SELECT username,user_id FROM users WHERE username=$1;";
+    let sql = "SELECT username,user_id FROM users WHERE username=$1;";
     client.query(sql, safeValues).then((results) => {
         if (results.rowCount > 0) {
-            console.log('Username exists');
+            console.log("Username exists");
             let safeValues2 = [userName, password];
-            let sql2 = "SELECT username,user_id FROM users WHERE username=$1 AND password=$2;"
-            client.query(sql2, safeValues2)
-                .then((results2) => {
-                    if (results2.rowCount > 0) {
-                        let user_id = results2.rows[0].user_id;
-                        localStorage.setItem("username", userName);
-                        localStorage.setItem("userid", user_id);
-                        console.log('Success');
-                        res.redirect("/login");
-                    }
-                    else {
-                        let message = "Wrong password."
-                        res.render("pages/login", { message, localStorage });
-                    }
-                })
-
+            let sql2 =
+                "SELECT username,user_id FROM users WHERE username=$1 AND password=$2;";
+            client.query(sql2, safeValues2).then((results2) => {
+                if (results2.rowCount > 0) {
+                    let user_id = results2.rows[0].user_id;
+                    localStorage.setItem("username", userName);
+                    localStorage.setItem("userid", user_id);
+                    console.log("Success");
+                    res.redirect("/login");
+                } else {
+                    let message = "Wrong password.";
+                    res.render("pages/login", { message, localStorage });
+                }
+            });
         } else {
-            let message = "Username does not exist."
+            let message = "Username does not exist.";
             res.render("pages/login", { message, localStorage });
         }
     });
@@ -241,7 +237,6 @@ const getnotification = async () => {
 };
 
     //// Password changer function
-
     // function passwordChanger(req, res) {
     //     let { currentPassword, newPassword, newPasswordValidate } = req.body;
     //     let userName = localStorage.getItem("username")
@@ -278,6 +273,34 @@ async function searchRender(req, res) {
     res.render("pages/search", {
         localStorage, notifications, localUsername: localStorage.getItem("username"),
     });
+    //         // res.render("./pages/userlist", {message});
+    //     }
+    //     else{
+    //         let sql = "SELECT password FROM users WHERE username=$1;";
+    //         client.query(sql, safeValues).then((results) => {
+    //             let password = results.rows[0].password;
+    //             if (password !== currentPassword) {
+    //                 let message = "Current password doesn't match what you input."
+    //                 console.log(message);
+    //             }
+    //             else{
+    //                 let safeValues2 = [newPassword,userName];
+    //                 let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
+    //                 client.query(sql2,safeValues2).then((
+    //                     console.log("Password");
+    //                 ))
+    //             }
+    //         })
+    //     }}
+}
+
+async function searchRender(req, res) {
+    console.log("reeeeeeeq", req.query);
+    let { body } = await superAgent.get(
+        `https://api.jikan.moe/v3/search/anime?q=${req.query.search}`
+    );
+    let animes = body.results;
+    res.render("pages/search", { localStorage, animes });
 }
 
 function searchHandler(req, res) {
@@ -311,13 +334,10 @@ async function mainHandler(req, res) {
                 localStorage,
                 notifications
             });
-
+        })
+        .catch(() => {
+            res.send("did not work");
         });
-
-
-    }).catch(() => {
-        res.send("did not work");
-    })
 }
 
 function getSeason(date) {
