@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS userAnime;
+DROP TABLE IF EXISTS useranime;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS animes;
 CREATE TABLE IF NOT EXISTS users (
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS animes (
   image_url VARCHAR(255) NOT NULL,
   broadcast VARCHAR(100) NOT NULL
 );
-CREATE TABLE IF NOT EXISTS userAnime (
+CREATE TABLE IF NOT EXISTS useranime (
   is_favorite BOOLEAN DEFAULT false,
   is_watching BOOLEAN DEFAULT false,
   is_watched BOOLEAN DEFAULT false,

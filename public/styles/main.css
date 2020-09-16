@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 @import "./reset.css";
+@import "./base.css";
 @import "./layout.css";
 @import "./utilities.css";
 @import "./modules.css";
@@ -6,6 +8,7 @@
     --main-color: #e85d6f;
     --white: rgb(220, 220, 200);
 }
+
 html {
     font-size: 18px;
     line-height: 1.4;
