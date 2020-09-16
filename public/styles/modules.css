@@ -21,8 +21,9 @@
 * {
     box-sizing: border-box;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+#logo{
+    width: 70px;
+}
 
 .inlineBlock{
     display: inline-block;
@@ -47,13 +48,14 @@
 .thirds{
     width: 31.5%;
 }
-option,select,button#searchButton{
+option,select{
     box-sizing: border-box;
     background-color: #E85D6F;
     padding: 5px;
     border: none;
     border: 1px solid #b990c9;
 }
+
 option{
     background-color: #d4d4d4;
  
@@ -61,7 +63,10 @@ option{
 
 button.detailsBtn{
     border-radius: 3px;
-    background-color:  #2c20481f;
+    background-color:  #2c2048;
+    box-shadow: 0px 0px 10px #2c2048;
+    padding: 5px;
+    border: 1px solid rgba(220, 220, 200, 0.555);
 }
 .feature{
     padding: 70px 60px;
@@ -87,6 +92,8 @@ button.detailsBtn{
 }
 .bannerText{
     font-size: 50px;
+    font-family: 'Playfair Display', serif;
+
 }
 #banner{
     margin: 80px 0px;
@@ -96,12 +103,22 @@ button.detailsBtn{
     border: 2px solid #E85D6F;
     text-decoration: none;
     border-radius: 3px;
+    background-color: transparent;
+    color: rgb(220, 220, 200);
 
 }
 .indexButtons:active, .indexButtons:visited{
     font-family: 'Playfair Display', serif;
     color: white;
 
+}
+.indexButtons:hover{
+    border: 2px solid #ff7f90;
+    color: white;
+
+}
+#searchButton{
+    width: 32%;
 }
 .rotate{
     transform: rotate(180deg);
@@ -113,9 +130,6 @@ button.detailsBtn{
 .quoteClose{
     text-align: right;
 }
-.quoteClose hr{
-    margin-top: 0px;}
-
 .error-message{
     color:var(--main-color);
     text-align: center;

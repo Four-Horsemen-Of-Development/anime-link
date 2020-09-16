@@ -60,14 +60,15 @@ function getTopAnime(){
         
                 datasets: [
                     {
-                        label: "Population (millions)",
+                        label: "members (millions)",
                         backgroundColor: "#E58A96",
                         data: topAnimeArr.map((item)=>{return item.members}),
                     }
                 ]
             },
             options: {
-                legend: { display: false ,
+                legend: { 
+                    display: false ,
                     labels:{
                         fontColor : "white"
                     }
@@ -78,6 +79,11 @@ function getTopAnime(){
                 },
                 scales: {
                     yAxes: [{
+                        // gridLines:{
+                        //     display: true ,
+                        //     color : 'rgb(200,200,200)'
+                        // },
+        
                         ticks: {
                             fontColor: "white",
                             fontSize: 18,
@@ -86,6 +92,11 @@ function getTopAnime(){
                         }
                     }],
                     xAxes: [{
+                        gridLines:{
+                            display: true ,
+                            color : 'rgb(200,200,200)'
+                        },
+
                         ticks: {
                             fontColor: "white",
                             fontSize: 14,
