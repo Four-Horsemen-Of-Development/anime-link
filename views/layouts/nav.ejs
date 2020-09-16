@@ -3,7 +3,11 @@
         <nav class="d-flex justify-between">
             <ul class="nav-links d-flex ul-none">
                 <li>
-                    <img src="../../images/logo2.PNG" alt="animatic logo" id="logo">
+                    <img
+                        src="../../images/logo2.PNG"
+                        alt="animatic logo"
+                        id="logo"
+                    />
                 </li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/random">Random Anime</a></li>
@@ -17,13 +21,13 @@
                 <li><a href="/login">login</a></li>
                 <%} %>
             </ul>
-            <form class="d-flex align-center">
-                <input type="text" placeholder="search" />
+            <form action="./search" class="d-flex align-center" method="get">
+                <input type="text" placeholder="search" name="search" />
                 <button type="submit">
                     <i class="fa fa-search"></i>
                 </button>
             </form>
         </nav>
     </div>
-    <hr>
+    <hr />
 </header>

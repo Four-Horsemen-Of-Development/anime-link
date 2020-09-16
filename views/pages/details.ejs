@@ -20,6 +20,49 @@
                         <% console.log(anime.title) %>
                         <h2><%= anime.title %></h2>
                         <p><%= anime.description %></p>
+                        <section class="add-anime-to">
+                            <div class="add-anime-to d-flex">
+            
+                                <% if (localStorage.getItem("userid")!==null ){ %>
+                                <!-- --- favorite --- -->
+                                <form action="/updateUserList" method="POST">
+                                    <%- include('../layouts/anime_inputs') %>
+                                    <!--  -->
+            
+                                    <input type="hidden" name="option" value="is_favorite" />
+                                    <button type="submit" class="indexButtons">favorite</button>
+                                </form>
+                                <!-- xxx favorite xxx -->
+                                <!-- --- is_watching --- -->
+                                <form action="/updateUserList" method="POST">
+                                    <%- include('../layouts/anime_inputs') %>
+                                    <!--  -->
+            
+                                    <input type="hidden" name="option" value="is_watching" />
+                                    <button type="submit" class="indexButtons">watching</button>
+                                </form>
+                                <!-- xxx is_watching xxx -->
+                                <!-- --- is_watched --- -->
+                                <form action="/updateUserList" method="POST">
+                                    <%- include('../layouts/anime_inputs') %>
+                                    <!--  -->
+                                    <input type="hidden" name="option" value="is_watched" />
+                                    <button type="submit" class="indexButtons">watched</button>
+                                </form>
+                                <!-- xxx is_watched xxx -->
+                                <!-- --- following --- -->
+                                <% if (anime.airing) { %>
+                                <form action="/updateUserList" method="POST">
+                                    <%- include('../layouts/anime_inputs') %>
+                                    <!--  -->
+                                    <input type="hidden" name="option" value="following" />
+                                    <button type="submit" class="indexButtons">follow</button>
+                                </form>
+            
+                                <% } %> <% } %>
+                                <!-- xxx following xxx -->
+                            </div>
+                        </section>
                     </section>
                 </section>
             </div>
@@ -27,65 +70,29 @@
             <section class="sub-description">
                 <div class="container">
                     <div>
+                        <ul class="ul-none">
+                            <div class="card">
+                                <li>episodes: <%= anime.episodes %></li>
+                                <li>genres: <%= anime.genres %></li>
+                                <li>status: <%= anime.status %></li>
+                            </div>
+                            <div class="card">
+                                <li>aired: <%= anime.aired %></li>
+                                <li>duration: <%= anime.duration %></li>
+                                <li>rating: <%= anime.rating %></li>
+                            </div>
 
-                        <ul>
-                            <li>episodes: <%= anime.episodes %></li>
-                            <li>genres: <%= anime.genres %></li>
-                            <li>status: <%= anime.status %></li>
-                            <li>aired: <%= anime.aired %></li>
-                            <li>duration: <%= anime.duration %></li>
-                            <li>rating: <%= anime.rating %></li>
-                            <li>score: <%= anime.score %></li>
-                            <li>popularity: <%= anime.popularity %></li>
-                            <li>rank: <%= anime.rank %></li>
+                            <div class="card">
+                                <li>score: <%= anime.score %></li>
+                                <li>popularity: <%= anime.popularity %></li>
+                                <li>rank: <%= anime.rank %></li>
+                            </div>
                         </ul>
                     </div>
 
                 </div>
             </section>
-            <section class="add-anime-to">
-                <div class="container d-flex justify-center">
-
-                    <% if (localStorage.getItem("userid")!==null ){ %>
-                    <!-- --- favorite --- -->
-                    <form action="/updateUserList" method="POST">
-                        <%- include('../layouts/anime_inputs') %>
-                        <!--  -->
-
-                        <input type="hidden" name="option" value="is_favorite" />
-                        <button type="submit">favorite</button>
-                    </form>
-                    <!-- xxx favorite xxx -->
-                    <!-- --- is_watching --- -->
-                    <form action="/updateUserList" method="POST">
-                        <%- include('../layouts/anime_inputs') %>
-                        <!--  -->
-
-                        <input type="hidden" name="option" value="is_watching" />
-                        <button type="submit">watching</button>
-                    </form>
-                    <!-- xxx is_watching xxx -->
-                    <!-- --- is_watched --- -->
-                    <form action="/updateUserList" method="POST">
-                        <%- include('../layouts/anime_inputs') %>
-                        <!--  -->
-                        <input type="hidden" name="option" value="is_watched" />
-                        <button type="submit">watched</button>
-                    </form>
-                    <!-- xxx is_watched xxx -->
-                    <!-- --- following --- -->
-                    <% if (anime.airing) { %>
-                    <form action="/updateUserList" method="POST">
-                        <%- include('../layouts/anime_inputs') %>
-                        <!--  -->
-                        <input type="hidden" name="option" value="following" />
-                        <button type="submit">follow</button>
-                    </form>
-
-                    <% } %> <% } %>
-                    <!-- xxx following xxx -->
-                </div>
-            </section>
+           
         </article>
     </main>
     <%- include('../layouts/footer') %>

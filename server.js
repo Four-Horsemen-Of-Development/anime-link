@@ -261,8 +261,13 @@ function quoteHandler() {
     //     }}
 }
 
-function searchRender(req, res) {
-    res.render("pages/search", { localStorage });
+async function searchRender(req, res) {
+    console.log("reeeeeeeq", req.query);
+    let { body } = await superAgent.get(
+        `https://api.jikan.moe/v3/search/anime?q=${req.query.search}`
+    );
+    let animes = body.results;
+    res.render("pages/search", { localStorage, animes });
 }
 
 function searchHandler(req, res) {
