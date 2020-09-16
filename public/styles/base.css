@@ -1,7 +1,7 @@
 
 body{
     background: url(http://estudiopatagon.com/themes/wordpress/reinv5/wp-content/uploads/2019/08/bg-body-op-1.jpg) no-repeat top center fixed !important; ;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Kumbh Sans', sans-serif;
     color: rgb(220, 220, 200);
 
 }
@@ -33,9 +33,15 @@ body{
 }
 
 hr {
-    margin-top: 100px;
+    margin: 50px 0px;
     display: inline-block;
     border: 1px solid #E85D6F;
-    width: 15%;
+    width: 13%;
 
+}
+header hr {
+    width: 100%;
+    border-top: 1px solid rgba(220, 220, 200, 0.555);
+    margin: 0;
+    border-bottom: none;
 }

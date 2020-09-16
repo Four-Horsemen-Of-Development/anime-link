@@ -37,9 +37,8 @@ input {
     color: var(--main-color);
 }
 /* header */
-header {
+header, .smallerBannerText{
     padding: 1em 0;
-    font-family: 'Kumbh Sans', sans-serif;
 }
 header .logo {
     text-align: center;
