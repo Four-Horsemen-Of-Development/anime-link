@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime-Limk</title>
+    <title>Animatic</title>
     <link
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
@@ -18,18 +18,14 @@
         <section id="banner" class="padding">
             <% if(localUsername != null){%>
             <p class="bannerText">Welcome Back</p>
-            <p class="smallerBannerText">Go to your Anime Collection</p>
+            <p class="smallerBannerText">Go to user panel to checkout your lists and modify them for your needs.</p>
             <a href="/user_list" class="indexButtons">User panel</a>
             <%}else {%>
-            <p class="bannerText">Sign up for free</p>
+            <p class="bannerText">Sign Up for free</p>
+            <p class="smallerBannerText">To add animes to your lists and get notified when new episodes air.</p>
             <a href="/login" class="indexButtons">SIGN UP</a>
             <% } %>
         </section>
-        <!-- <section class="d-flex justify-around ">
-            <div class="feature">SEARCH for animes</div>
-            <div class="feature">KEEP TRACK of your favourite animes</div>
-            <div class="feature">'PLACEHOLDER'</div>
-        </section> -->
     </section>
     <main class="colorback">
         <div class="container">
@@ -63,6 +59,7 @@
             </section>
         </div>
     </main>
+    <%- include('../layouts/notification') %>
     <%- include('../layouts/footer') %>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

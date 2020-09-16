@@ -28,14 +28,14 @@
         </div>
         <section>
             <h2>Change your password</h2>
-            <form action="/passwordchange/_method=put" method="POST">
+            <form action="/passwordchange/<% localStorage.getItem('userid')%>?_method=put" method="POST">
                 <input required type="password" name="currentPassword" placeholder="***********" minlength="6">
                 <input required type="password" name="newPassword" placeholder="***********" minlength="6">
                 <input required type="password" name="newPasswordValidate" placeholder="***********" minlength="6">
                 <input required type="submit">
             </form>
         </section>
-    </div> -->
+    </div>  -->
 
 
         <!-- --- favourites --- -->
@@ -143,6 +143,7 @@
         </section>
         <!-- xxx following xxx -->
     </main> 
+    <%- include('../layouts/notification') %>
     <%- include('../layouts/footer') %>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./js/userPanel.js"></script>

@@ -1,16 +1,21 @@
+<% if(localUsername != null){%>
 <section class="notifications">
     <% if (notifications.length !== 0) { %>
     <ul class="ul-none d-none noti-list">
         <button class="cancel">X</button>
+        <h4 class="text-center">Animes airing today</h4>       
+
+        <br>
         <% notifications.forEach((item) => {%> <%
         %>
         <li><a href="/details/<%=item.mal_id%>"><%= item.title %></a></li>
         <%})%>
     </ul>
     <button class="reminder">
-        remainder <i class="fa fa-bell"></i>
+        Reminder <i class="fa fa-bell"></i>
     </button>
     <% } else{ %>
-    <p>no episodes for today</p>
+    <p>No episodes for today.</p>
     <% }%>
 </section>
+<%}%>

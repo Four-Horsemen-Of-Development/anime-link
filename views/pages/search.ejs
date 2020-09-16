@@ -25,6 +25,11 @@
 <body>
     <%- include('../layouts/nav') %>
     <main class="container text-center minvh">
+        <div class="container text-center">
+            <h2>Search</h2>
+            <p>Search for animes with custom filters.</p>
+        </div>
+
         <form id="searchForm" class="searchOptionsGrid">
             <div >
                 <!-- <h2>Search</h2> -->
@@ -64,6 +69,7 @@
             </div>
         </section>
     </main>
+    <%- include('../layouts/notification') %>
     <%- include('../layouts/footer') %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
