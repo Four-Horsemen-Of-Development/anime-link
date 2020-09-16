@@ -163,7 +163,7 @@ app.get("/notification", async (req, res) => {
     JOIN animes as a on a.mal_id = ua.mal_id
     where ua.following = true and  trim(to_char(current_timestamp, 'DAY'))  = a.broadcast
     `;
-    // let getnotification = `select trim(to_char(current_timestamp, 'DAY'));
+    // let getnotification = `select trim(to _char(current_timestamp, 'DAY'));
     // `;
     let { rows } = await client.query(getnotification);
     res.send(rows);
@@ -228,6 +228,15 @@ function signinHandler(req, res) {
     });
 }
 
+ const getnotification = async () => {
+    let getnotification = `select * from useranime ua
+    JOIN users as u on u.user_id = ua.user_id
+    JOIN animes as a on a.mal_id = ua.mal_id
+    where ua.following = true and  trim(to_char(current_timestamp, 'DAY'))  = a.broadcast
+    `;
+    return await client.query(getnotification);
+};
+
 function quoteHandler() {
 //// Password changer function
 
@@ -272,7 +281,8 @@ function searchHandler(req, res) {
     });
 }
 
-function mainHandler(req, res) {
+async function mainHandler(req, res) {
+    let { rows: notifications } = await getnotification();
     let date = new Date();
     let season = getSeason(date);
     let url=`https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
@@ -290,7 +300,8 @@ function mainHandler(req, res) {
                 animeArr : animeArr ,
                 localUsername: localStorage.getItem("username"),
                 quote : results.body.data[0],
-                localStorage
+                localStorage,
+                notifications
             });
 
         });

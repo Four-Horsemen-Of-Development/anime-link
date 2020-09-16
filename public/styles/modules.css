@@ -118,6 +118,11 @@ button.detailsBtn{
 
 .error-message{
     color:var(--main-color);
+    text-align: center;
+}
+.error-message p {
+    display: inline;
+
 }
 .login-container {
     /* height: 600px; */
@@ -201,8 +206,8 @@ button.detailsBtn{
     justify-content: center;
     align-items: center;
     padding: 0 15px;
-    width: 75%;
-    height: 45px;
+    width: 65%;
+    height: 40px;
     background-color:var(--main-color);
     border-radius: 10px;
     font-size: 16px;
@@ -224,4 +229,59 @@ button.detailsBtn{
 
 .slick-dots{
     position: static; 
+}
+
+
+main{
+    min-height: 80vh;
+}
+
+.parallax-anime-div{
+    background-color: #362953;
+}
+
+
+.notifications {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 245px;
+    padding: 10px 10px;
+    z-index: 100;
+    background-color: cornflowerblue;
+}
+.notifications ul {
+    margin: 0;
+}
+.notifications ul a {
+    display: block;
+}
+.notifications button.reminder {
+    width: 100%;
+    display: block;
+    color: var(--white);
+    margin: 0;
+    background: transparent;
+    text-align: left;
+    border: none;
+    padding: 0;
+    text-align: center;
+}
+.notifications button.cancel {
+    width: 20px;
+    display: block;
+    color: var(--white);
+    margin: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    float: right;
+}
+.notifications p {
+    margin: 0;
+    text-align: center;
+}
+.notifications button.cancel:hover,
+.notifications button.reminder:hover {
+    color: var(--main-color);
 }

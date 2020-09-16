@@ -12,7 +12,7 @@
 
 <body>
     <%- include('../layouts/nav') %>
-    <main class="container text-center">
+    <main class="container text-center minvh">
         <div class="padding">
             <a class="tabs" id="fave" href="#faveSec">favourites</a>
             <a class="tabs" id="watching" href="#watchingSec">watching</a>
@@ -38,8 +38,6 @@
     </div> -->
 
 
-
-    <main>
         <!-- --- favourites --- -->
         <section class="favourites row" id="faveSec">
             <% for( let anime = 0; anime < animeList.length; anime++ ) { %>
@@ -144,7 +142,7 @@
             <% } %> <% } %>
         </section>
         <!-- xxx following xxx -->
-    </main>
+    </main> 
     <%- include('../layouts/footer') %>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./js/userPanel.js"></script>

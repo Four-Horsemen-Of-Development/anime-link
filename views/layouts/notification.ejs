@@ -1,0 +1,16 @@
+<section class="notifications">
+    <% if (notifications.length !== 0) { %>
+    <ul class="ul-none d-none noti-list">
+        <button class="cancel">X</button>
+        <% notifications.forEach((item) => {%> <%
+        %>
+        <li><a href="/details/<%=item.mal_id%>"><%= item.title %></a></li>
+        <%})%>
+    </ul>
+    <button class="reminder">
+        remainder <i class="fa fa-bell"></i>
+    </button>
+    <% } else{ %>
+    <p>no episodes for today</p>
+    <% }%>
+</section>
