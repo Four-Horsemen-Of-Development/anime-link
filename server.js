@@ -21,14 +21,15 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./public"));
 
-app.get("/", mainHandler);
-app.get("/login", loginHandler);
-app.post("/signup", signupHandler);
-app.post("/signin", signinHandler);
-app.get("/logout", logoutHandler);
-app.get("/quote", quoteHandler);
-app.get("/search", searchRender);
-app.post("/searchShow", searchHandler);
+app.get('/', mainHandler);
+app.get('/login', loginHandler)
+app.post('/signup', signupHandler);
+app.post('/signin', signinHandler);
+app.get('/logout', logoutHandler);
+// app.get('/quote', quoteHandler);
+app.get('/search', searchRender)
+app.post('/searchShow', searchHandler)
+
 
 app.get("/random", (req, res) => {
     res.render("./pages/random-animes");
@@ -227,6 +228,7 @@ function signinHandler(req, res) {
     });
 }
 
+function quoteHandler() {
 //// Password changer function
 
 // function passwordChanger(req, res) {
@@ -256,12 +258,6 @@ function signinHandler(req, res) {
 //         })
 //     }}
 
-function quoteHandler(req, res) {
-    let url = "https://animechanapi.xyz/api/quotes/random";
-    superAgent.get(url).then((result) => {
-        // res.send(result.body.data[0].quote);
-        res.send(localStorage.getItem("userid"));
-    });
 }
 
 function searchRender(req, res) {
@@ -279,26 +275,29 @@ function searchHandler(req, res) {
 function mainHandler(req, res) {
     let date = new Date();
     let season = getSeason(date);
-    let url = `https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
-    superAgent(url)
-        .then((result) => {
-            let animeArr = [];
-            for (let i = 0; i < 8; i++) {
-                animeArr.push({
-                    title: result.body.anime[i].title,
-                    image_url: result.body.anime[i].image_url,
-                    id: result.body.anime[i].mal_id,
-                });
-            }
-
-            res.render("pages/index", {
-                animeArr: animeArr,
+    let url=`https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
+    superAgent(url).then((result)=>{
+        let animeArr = [];
+        for (let i = 0; i < 8; i++) {
+            animeArr.push({title: result.body.anime[i].title,
+                image_url: result.body.anime[i].image_url,
+                id: result.body.anime[i].mal_id
+            })
+        }
+        let url2 = "https://animechanapi.xyz/api/quotes/random";
+        superAgent.get(url2).then((results) => {
+            res.render("pages/index",{
+                animeArr : animeArr ,
                 localUsername: localStorage.getItem("username"),
+                quote : results.body.data[0],
             });
-        })
-        .catch(() => {
-            res.send("did not work");
+
         });
+    
+    
+    }).catch(()=>{
+        res.send("did not work");
+    })
 }
 
 function getSeason(date) {

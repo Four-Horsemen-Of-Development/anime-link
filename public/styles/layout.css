@@ -10,7 +10,8 @@
 .row .col {
     width: 220px;
     height: 100%;
-    display: flex;
+    margin: 0 auto;
+
 }
 
 /* .row .col + .col {
@@ -23,9 +24,13 @@
 .row .col h2 {
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 160px;
+    max-width: 220px;
     height: 1.2em;
     white-space: nowrap;
+    font-size: medium;
+    font-family: 'Playfair Display', serif;
+    color: white;
+
 }
 
 .col button {

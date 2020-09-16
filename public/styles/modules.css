@@ -1,8 +1,102 @@
+
 * {
     box-sizing: border-box;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+
+.inlineBlock{
+    display: inline-block;
+}
+.searchOptionsGrid{
+    display: grid;
+    grid-column: 1;    
+    gap: 15px;
+    width: 50%;
+}
+
+#searchForm{
+    box-sizing: border-box;
+    padding: 8%;
+    margin: 0 auto;
+}
+.fullWidth{
+    width: 97%;
+    box-sizing: border-box;
+}
+
+.thirds{
+    width: 31.5%;
+}
+option,select,button#searchButton{
+    box-sizing: border-box;
+    background-color: #E85D6F;
+    padding: 5px;
+    border: none;
+    border: 1px solid #b990c9;
+}
+option{
+    background-color: #d4d4d4;
+ 
+}
+
+button.detailsBtn{
+    border-radius: 3px;
+    background-color:  #2c20481f;
+}
+.feature{
+    padding: 70px 60px;
+    background-color:  #2c2048;
+    flex-grow: 1;
+    margin: 0 6%;
+    flex-basis: 50%;
+    border-radius: 3px;
+
+}
+.tabs{
+    display: inline-block;
+    width:max-content;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+.tabs:hover{
+    color: white;
+}
+.active{
+    border: 1px solid black;
+}
+.bannerText{
+    font-size: 50px;
+}
+#banner{
+    margin: 80px 0px;
+}
+.indexButtons{
+    padding: 10px 20px;
+    border: 2px solid #E85D6F;
+    text-decoration: none;
+    border-radius: 3px;
+
+}
+.indexButtons:active, .indexButtons:visited{
+    font-family: 'Playfair Display', serif;
+    color: white;
+
+}
+.rotate{
+    transform: rotate(180deg);
+}
+.quote{
+    display: inline-block;
+    width:60px;
+}
+.quoteClose{
+    text-align: right;
+}
+.quoteClose hr{
+    margin-top: 0px;
+
 .login-container {
     background-image: url('https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/123740332/original/934af649631a2dc8730f0b63cfed1e63908b6f08/create-anime-background-style.jpg');
     /* height: 600px; */
