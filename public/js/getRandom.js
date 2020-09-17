@@ -29,8 +29,11 @@ $(".generate-anime").on("click", () => {
             $(".anime button[type=submit]").addClass("pointer");
             // cant click on gererate ultil finish the round
             $(".generate-anime").prop("disabled", false);
-            $(".generate-anime").text("generate again");
-            $(".anime h2").text(anime.title);
+            $(".generate-anime").text("Generate again");
+            $(".rightRandom h2").text(anime.title);
+            $(".rightRandom .episodes").text(`Episodes: ${anime.episodes}`);
+            $(".rightRandom .rating").text(`Rank: ${anime.rank}`);
+
             count = 0;
         } else {
             $("#random-img").attr(

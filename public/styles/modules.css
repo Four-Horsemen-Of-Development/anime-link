@@ -13,6 +13,8 @@
     font-weight: 600;
     border: none;
     transition: 300ms all ease-in-out;
+    grid-column: 2;
+    max-width: max-content;
 }
 .btn:hover {
     background-color: var(--main-color);
@@ -21,118 +23,139 @@
 * {
     box-sizing: border-box;
 }
-#logo{
+#logo {
     width: 70px;
+    border: none;
 }
 
-.inlineBlock{
+.inlineBlock {
     display: inline-block;
 }
-.searchOptionsGrid{
+.searchOptionsGrid {
     display: grid;
-    grid-column: 1;    
+    grid-column: 1;
     gap: 15px;
     width: 50%;
 }
 
-#searchForm{
+#searchForm {
     box-sizing: border-box;
-    padding: 8%;
+    padding: 5%;
     margin: 0 auto;
 }
-.fullWidth{
+.fullWidth {
     width: 97%;
     box-sizing: border-box;
 }
 
-.thirds{
+.thirds {
     width: 31.5%;
 }
-option,select{
+option,
+select {
     box-sizing: border-box;
-    background-color: #E85D6F;
+    background-color: #e85d6f;
     padding: 5px;
     border: none;
     border: 1px solid #b990c9;
 }
 
-option{
+option {
     background-color: #d4d4d4;
- 
 }
 
-button.detailsBtn{
+button.detailsBtn {
     border-radius: 3px;
-    background-color:  #2c2048;
+    background-color: #2c2048;
     box-shadow: 0px 0px 10px #2c2048;
     padding: 5px;
     border: 1px solid rgba(220, 220, 200, 0.555);
 }
-.feature{
+.feature {
     padding: 70px 60px;
-    background-color:  #2c2048;
+    background-color: #2c2048;
     flex-grow: 1;
     margin: 0 6%;
     flex-basis: 50%;
     border-radius: 3px;
-
 }
-.tabs{
+.tabs {
     display: inline-block;
-    width:max-content;
+    width: max-content;
     padding: 10px;
     text-decoration: none;
-    color: black;
-  
+    color: #ffbbc4;
+    font-size: 1.5rem;
+    text-transform: capitalize;
 }
-.tabs:hover{
+.tabs + .tabs {
+    margin-left: 10px;
+}
+.tabs:hover {
     color: white;
 }
-.active{
+.active {
     border: 1px solid black;
 }
-.bannerText{
-    font-size: 50px;
-    font-family: 'Playfair Display', serif;
 
+.bannerText {
+    font-size: 50px;
+    font-family: "Playfair Display", serif;
 }
-#banner{
-    margin: 80px 0px;
+.bannerText1 {
+    font-size: 50px;
+    color: ivory;
+    background-color: #7442884a;
+    padding: 10px;
+    margin-top: 10px;
 }
-.indexButtons{
-    padding: 10px 20px;
-    border: 2px solid #E85D6F;
+.bannerText1 h2 {
+    margin: 0;
+    color: var(--white);
+}
+.bannerText1 span {
+    color: var(--main-color);
+}
+#banner {
+    margin: 10px 0px;
+}
+.indexButtons,
+.tabs:hover,
+.active {
+    padding: 10px 20px !important;
+    border: 2px solid #e85d6f !important;
     text-decoration: none;
     border-radius: 3px;
     background-color: transparent;
     color: rgb(220, 220, 200);
-
+    text-transform: capitalize;
 }
 .indexButtons:active, .indexButtons:visited{
-    font-family: 'Playfair Display', serif;
     color: white;
-
 }
-.indexButtons:hover{
+.indexButtons:hover {
     border: 2px solid #ff7f90;
     color: white;
-
 }
-#searchButton{
+#searchButton {
     width: 32%;
 }
-.rotate{
+.rotate {
     transform: rotate(180deg);
 }
-.quote{
+.quote {
     display: inline-block;
-    width:60px;
+    width: 60px;
 }
-.quoteClose{
+.quoteClose {
     text-align: right;
 }
-.error-message{
-    color:var(--main-color);
+.error-message {
+    color: var(--main-color);
+    text-align: center;
+}
+.error-message p {
+    display: inline;
 }
 .login-container {
     /* height: 600px; */
@@ -169,32 +192,32 @@ button.detailsBtn{
 
 .text1 {
     font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     color: #555555;
     line-height: 1.5;
 }
 
 .text2 {
     font-size: 14px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     color: #999999;
     line-height: 1.5;
 }
 
-.wrap-input{
+.wrap-input {
     width: 100%;
     position: relative;
     background-color: #f7f7f7;
     border: 1px solid #e6e6e6;
-    border-radius: 10px; 
-    margin:20px auto 20px auto;
+    border-radius: 10px;
+    margin: 20px auto 20px auto;
 }
 
-.login-input{
+.login-input {
     color: #333333;
     line-height: 1.2;
     font-size: 16px;
-  
+
     display: block;
     width: 100%;
     background: transparent;
@@ -204,21 +227,21 @@ button.detailsBtn{
     border: none;
 }
 
-.login-form-button-container{
+.login-form-button-container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.login-form-button{
+.login-form-button {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 15px;
-    width: 75%;
-    height: 45px;
-    background-color:var(--main-color);
+    width: 65%;
+    height: 40px;
+    background-color: var(--main-color);
     border-radius: 10px;
     font-size: 16px;
     color: #fff;
@@ -227,16 +250,90 @@ button.detailsBtn{
     z-index: 1;
 }
 
-.label-container{
+.label-container {
     padding-bottom: 10px;
     padding-top: 15px;
 }
 
-.login-button-second{
+.login-button-second {
     background-color: var(--main-color);
     margin-top: 15px;
 }
 
-.slick-dots{
-    position: static; 
+.slick-dots {
+    position: static;
+}
+
+main {
+    min-height: 85vh;
+}
+
+.parallax-anime-div {
+    background-color: #362953;
+}
+
+.notifications {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 245px;
+    padding: 10px 10px;
+    z-index: 100;
+    background-color: cornflowerblue;
+}
+.notifications ul {
+    margin: 0;
+}
+.notifications ul a {
+    display: block;
+}
+.notifications button.reminder {
+    width: 100%;
+    display: block;
+    color: var(--white);
+    margin: 0;
+    background: transparent;
+    text-align: left;
+    border: none;
+    padding: 0;
+    text-align: center;
+}
+.notifications button.cancel {
+    width: 20px;
+    display: block;
+    color: var(--white);
+    margin: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    float: right;
+}
+.notifications p {
+    margin: 0;
+    text-align: center;
+}
+.notifications button.cancel:hover,
+.notifications button.reminder:hover {
+    color: var(--main-color);
+}
+
+.col h2 {
+    margin-bottom: 20px;
+}
+.card {
+    background-color: #80566e99;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    text-transform: capitalize;
+}
+
+.card li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.change-password{
+    margin-top:30px;
 }

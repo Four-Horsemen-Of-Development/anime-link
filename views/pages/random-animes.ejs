@@ -12,17 +12,26 @@
 <body>
     <%- include('../layouts/nav') %>
     <main>
+        <div class="container text-center">
+            <h2>Random Anime Generator</h2>
+            <p>Click the generate button to randomly choose a anime from the top list.</p>
+        </div>
         <section class="generated-anime">
             <form action="" class="anime">
                 <button type="submit" disabled>
 
                     <img id="random-img" src="./images/random.jpg" alt="random.jpg" />
-                    <h2 class="title"></h2>
                 </button>
             </form>
-            <button class="generate-anime btn">generate</button>
+            <div class="rightRandom">
+                <h2 class="title"></h2>
+                <p class="episodes"></p>
+                <p class="rating"></p>
+            </div>
+            <button class="generate-anime btn">Generate</button>
         </section>
     </main>
+    <%- include('../layouts/notification') %>
     <%- include('../layouts/footer') %>
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
