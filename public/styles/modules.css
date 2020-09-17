@@ -333,3 +333,7 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.change-password{
+    margin-top:30px;
+}

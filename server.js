@@ -27,7 +27,7 @@ app.post('/signin', signinHandler);
 app.get('/logout', logoutHandler);
 app.get('/search', searchRender);
 app.post('/searchShow', searchHandler);
-// app.put('/passwordChange/:userid', passwordChanger);
+app.put('/passwordChange/:userid', passwordChanger);
 
 app.get("/random", async (req, res) => {
     let { rows: notifications } = await getnotification();
@@ -48,7 +48,7 @@ app.get("/user_list", async (req, res) => {
                 `;
         client.query(getList, safeValue).then(async ({ rows }) => {
             let { rows: notifications } = await getnotification();
-            res.render("./pages/userlist", { animeList: rows, localStorage, notifications, localUsername: localStorage.getItem("username") });
+            res.render("./pages/userlist", { animeList: rows, localStorage, notifications, localUsername: localStorage.getItem("username"),localUserId: localStorage.getItem("userid") });
         });
         // res.render("./pages/random-animes");
     }
@@ -237,35 +237,36 @@ const getnotification = async () => {
 };
 
 //// Password changer function
-// function passwordChanger(req, res) {
-//     let { currentPassword, newPassword, newPasswordValidate } = req.body;
-//     let userName = localStorage.getItem("username")
-//     let safeValues = [userName];
-//     if (newPassword !== newPasswordValidate) {
-//         let message = "New passwords don't match."
-//         console.log(message);
-//         res.render("./pages/userlist", {message});
-//     }
-// else{
-//     let sql = "SELECT password FROM users WHERE username=$1;";
-//     client.query(sql, safeValues).then((results) => {
-//         let password = results.rows[0].password;
-//         if (password !== currentPassword) {
-//             let message = "Current password doesn't match what you input."
-//             console.log(message); 
-//         }
-//         else{
-//             let safeValues2 = [newPassword,userName];
-//             let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
-//             client.query(sql2,safeValues2).then(()=>{
-//                 console.log("Password");
-
-//             }
-//             )
-//         }
-//     })
-// }
-// }
+function passwordChanger(req, res) {
+    let { currentPassword, newPassword, newPasswordValidate } = req.body;
+    let userName = localStorage.getItem("username")
+    let safeValues = [userName];
+    if (newPassword !== newPasswordValidate) {
+        let message = "New passwords don't match."
+        console.log(message);
+        res.redirect('/user_list');
+    }
+else{
+    let sql = "SELECT password FROM users WHERE username=$1;";
+    client.query(sql, safeValues).then((results) => {
+        let password = results.rows[0].password;
+        if (password !== currentPassword) {
+            let message = "Current password doesn't match what you input."
+            console.log(message); 
+            res.redirect('/user_list');
+        }
+        else{
+            let safeValues2 = [newPassword,userName];
+            let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
+            client.query(sql2,safeValues2).then(()=>{
+                console.log("Password");
+                res.redirect('/user_list');
+            }
+            )
+        }
+    })
+}
+}
 
 
 async function searchRender(req, res) {
@@ -355,6 +356,11 @@ function logoutHandler(req, res) {
     localStorage.clear();
     res.redirect("/");
 }
+
+
+app.get('*',(req,res)=>{
+    res.status(404).render('pages/error');
+})
 
 client.connect().then(() => {
     app.listen(PORT, () => console.log(`listening on ${PORT}`));
