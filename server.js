@@ -64,7 +64,7 @@ app.get("/details/:id", async (req, res) => {
         // let { body: result } = await superAgent.get(recomndetionUrl);
         // console.log(result);
         // res.send(result.recommendations);
-        res.render("./pages/details", { anime, localStorage, notifications,localUsername: localStorage.getItem("username")});
+        res.render("./pages/details", { anime, localStorage, notifications, localUsername: localStorage.getItem("username") });
 
     });
 });
@@ -236,72 +236,52 @@ const getnotification = async () => {
     return await client.query(getnotification);
 };
 
-    //// Password changer function
-    // function passwordChanger(req, res) {
-    //     let { currentPassword, newPassword, newPasswordValidate } = req.body;
-    //     let userName = localStorage.getItem("username")
-    //     let safeValues = [userName];
-    //     if (newPassword !== newPasswordValidate) {
-    //         let message = "New passwords don't match."
-    //         console.log(message);
-    //         res.render("./pages/userlist", {message});
-    //     }
-        // else{
-        //     let sql = "SELECT password FROM users WHERE username=$1;";
-        //     client.query(sql, safeValues).then((results) => {
-        //         let password = results.rows[0].password;
-        //         if (password !== currentPassword) {
-        //             let message = "Current password doesn't match what you input."
-        //             console.log(message); 
-        //         }
-        //         else{
-        //             let safeValues2 = [newPassword,userName];
-        //             let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
-        //             client.query(sql2,safeValues2).then(()=>{
-        //                 console.log("Password");
+//// Password changer function
+// function passwordChanger(req, res) {
+//     let { currentPassword, newPassword, newPasswordValidate } = req.body;
+//     let userName = localStorage.getItem("username")
+//     let safeValues = [userName];
+//     if (newPassword !== newPasswordValidate) {
+//         let message = "New passwords don't match."
+//         console.log(message);
+//         res.render("./pages/userlist", {message});
+//     }
+// else{
+//     let sql = "SELECT password FROM users WHERE username=$1;";
+//     client.query(sql, safeValues).then((results) => {
+//         let password = results.rows[0].password;
+//         if (password !== currentPassword) {
+//             let message = "Current password doesn't match what you input."
+//             console.log(message); 
+//         }
+//         else{
+//             let safeValues2 = [newPassword,userName];
+//             let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
+//             client.query(sql2,safeValues2).then(()=>{
+//                 console.log("Password");
 
-        //             }
-        //             )
-        //         }
-        //     })
-        // }
-    // }
+//             }
+//             )
+//         }
+//     })
+// }
+// }
 
-    
+
 async function searchRender(req, res) {
+    let animes =[];
+    if (req.query.search !== undefined) {
+        let { body } = await superAgent.get(
+            `https://api.jikan.moe/v3/search/anime?q=${req.query.search}`
+        );
+         animes = body.results;    
+    }
     let { rows: notifications } = await getnotification();
     res.render("pages/search", {
-        localStorage, notifications, localUsername: localStorage.getItem("username"),
+        localStorage,animes, notifications, localUsername: localStorage.getItem("username"),
     });
-    //         // res.render("./pages/userlist", {message});
-    //     }
-    //     else{
-    //         let sql = "SELECT password FROM users WHERE username=$1;";
-    //         client.query(sql, safeValues).then((results) => {
-    //             let password = results.rows[0].password;
-    //             if (password !== currentPassword) {
-    //                 let message = "Current password doesn't match what you input."
-    //                 console.log(message);
-    //             }
-    //             else{
-    //                 let safeValues2 = [newPassword,userName];
-    //                 let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
-    //                 client.query(sql2,safeValues2).then((
-    //                     console.log("Password");
-    //                 ))
-    //             }
-    //         })
-    //     }}
 }
 
-async function searchRender(req, res) {
-    console.log("reeeeeeeq", req.query);
-    let { body } = await superAgent.get(
-        `https://api.jikan.moe/v3/search/anime?q=${req.query.search}`
-    );
-    let animes = body.results;
-    res.render("pages/search", { localStorage, animes });
-}
 
 function searchHandler(req, res) {
     let { searchQuery, genre, rated, status } = req.body;
@@ -335,11 +315,11 @@ async function mainHandler(req, res) {
                 notifications
             });
         })
-        .catch(() => {
-            res.send("did not work");
-        });
+            .catch(() => {
+                res.send("did not work");
+            });
+    })
 }
-
 function getSeason(date) {
     switch (date.getMonth()) {
         case 3:
