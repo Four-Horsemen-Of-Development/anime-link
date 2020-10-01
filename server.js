@@ -67,6 +67,8 @@ app.get("/details/:id", async (req, res) => {
         // res.send(result.recommendations);
         res.render("./pages/details", { anime, localStorage, notifications, localUsername: localStorage.getItem("username") });
 
+    }).catch((error)=>{
+        res.send('details');
     });
 });
 
@@ -301,7 +303,7 @@ function passwordChanger(req, res) {
     let userName = localStorage.getItem("username")
     let safeValues = [userName];
     if (newPassword !== newPasswordValidate) {
-        x
+        // x
         let message = "New passwords don't match."
         console.log(message);
         res.redirect('/user_list');
@@ -357,8 +359,11 @@ async function mainHandler(req, res) {
     let date = new Date();
     let season = getSeason(date);
     let url = `https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
+    let url2 = "https://animechanapi.xyz/api/quotes/random";
+
     superAgent(url).then((result) => {
         let animeArr = [];
+        console.log('first url '+ url)
         for (let i = 0; i < 8; i++) {
             animeArr.push({
                 title: result.body.anime[i].title,
@@ -366,7 +371,6 @@ async function mainHandler(req, res) {
                 id: result.body.anime[i].mal_id
             })
         }
-        let url2 = "https://animechanapi.xyz/api/quotes/random";
         superAgent.get(url2).then((results) => {
             res.render("pages/index", {
                 animeArr: animeArr,
@@ -376,10 +380,13 @@ async function mainHandler(req, res) {
                 notifications
             });
         })
-            .catch(() => {
-                res.send("did not work");
-            });
+        .catch(() => {
+            res.send("quote");
+        });
     })
+    .catch(() => {
+        res.send("main");
+    });
 }
 function getSeason(date) {
     switch (date.getMonth()) {
@@ -396,7 +403,7 @@ function getSeason(date) {
         case 9:
         case 10:
         case 11:
-            return "autumn";
+            return "fall";
             break;
         case 0:
         case 1:
