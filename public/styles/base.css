@@ -1,0 +1,50 @@
+body {
+    background: url(http://estudiopatagon.com/themes/wordpress/reinv5/wp-content/uploads/2019/08/bg-body-op-1.jpg)
+        no-repeat top center fixed !important;
+    font-family: "Kumbh Sans", sans-serif;
+    color: rgb(220, 220, 200);
+    z-index: 1;
+}
+
+.quoteSec {
+    padding: 2%;
+    text-align: center;
+    font-size: larger;
+    font-weight: lighter;
+    letter-spacing: 2px;
+}
+.padding {
+    box-sizing: border-box;
+    padding: 55px;
+}
+.welcome {
+    background-color: rgba(92, 39, 92, 0.733);
+    border: 2px solid black;
+    width: 50%;
+    padding: 20px 20px;
+}
+form img {
+    border: 3px solid rgb(110, 51, 110);
+}
+.banner {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 60%;
+    padding: 30px 30px 0px 30px;
+}
+.colorback {
+    background-color: #2c20482d;
+}
+
+hr {
+    margin: 50px 0px;
+    display: inline-block;
+    border: 1px solid #e85d6f;
+    width: 13%;
+}
+header hr {
+    width: 100%;
+    border-top: 1px solid rgba(220, 220, 200, 0.555);
+    margin: 0;
+    border-bottom: none;
+}
