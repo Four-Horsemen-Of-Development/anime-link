@@ -25,6 +25,7 @@ app.get('/login', loginHandler)
 app.post('/signup', signupHandler);
 app.post('/signin', signinHandler);
 app.get('/logout', logoutHandler);
+app.get('/trending', trendingHandler)
 app.get('/search', searchRender);
 app.post('/searchShow', searchHandler);
 app.put('/passwordChange/:userid', passwordChanger);
@@ -48,7 +49,7 @@ app.get("/user_list", async (req, res) => {
                 `;
         client.query(getList, safeValue).then(async ({ rows }) => {
             let { rows: notifications } = await getnotification();
-            res.render("./pages/userlist", { animeList: rows, localStorage, notifications, localUsername: localStorage.getItem("username"),localUserId: localStorage.getItem("userid") });
+            res.render("./pages/userlist", { animeList: rows, localStorage, notifications, localUsername: localStorage.getItem("username"), localUserId: localStorage.getItem("userid") });
         });
         // res.render("./pages/random-animes");
     }
@@ -66,6 +67,8 @@ app.get("/details/:id", async (req, res) => {
         // res.send(result.recommendations);
         res.render("./pages/details", { anime, localStorage, notifications, localUsername: localStorage.getItem("username") });
 
+    }).catch((error)=>{
+        res.send('details');
     });
 });
 
@@ -111,41 +114,90 @@ app.post("/updateUserList", (req, res) => {
         });
 });
 
-function updateAnimeInlist(req) {
-    let animeId = [req.body.mal_id];
-    console.log("checkIfAnimeExistcheckIfAnimeExistcheckIfAnimeExist");
+function updateAnimeInlist(req, res) {
+    let animeId = req.body.mal_id;
+    let userId = req.body.user_id;
+    let safeValue = [animeId, userId];
+    console.log("Check If Anime Exists");
     const getList = `select * from useranime ua 
             JOIN users as u on u.user_id = ua.user_id 
             JOIN animes as a on a.mal_id = ua.mal_id
-            WHERE $1 = ua.mal_id
+            WHERE ua.mal_id = $1 and ua.user_id = $2;
             `;
     client
-        .query(getList, animeId)
+        .query(getList, safeValue)
         .then(({ rowCount }) => {
-            console.log("rowCountrowCountrowCountrowCountrowCount", rowCount);
+            console.log("Row count :", rowCount);
             if (rowCount === 0) {
+                console.log('Anime does not exist for this user');
                 insertAnimeList(req);
             } else {
                 const updateSafeValues = [req.body.user_id, req.body.mal_id];
+                console.log('Option : ', req.body.option);
                 const update = `
                         UPDATE useranime SET ${req.body.option} = 
-                        CASE WHEN (select ${req.body.option} from useranime where mal_id = $2) = true then false
+                        CASE WHEN (select ${req.body.option} from useranime where mal_id = $2 and user_id = $1) = true then false
                         ELSE true END
                         WHERE user_id = $1 and mal_id = $2;
                         `;
                 client
                     .query(update, updateSafeValues)
                     .then((data) => {
-                        response.redirect(request.get("referer"));
+                        res.redirect(req.get("referer"));
                     })
                     .catch((error) => {
-                        console.log(error);
+                        // console.log(error);
                     });
             }
         })
         .catch((error) => {
             console.log(error);
         });
+}
+
+function trendingHandler(req, res) {
+    let country = localStorage.getItem('country')
+    let safeValue = [country]
+    let sql = `SELECT COUNT(*) FROM users
+    where country = $1;`
+    client.query(sql, safeValue).then((result) => {
+        let countryUsersCount = result.rows[0].count;
+        let sql2 = `select ua.mal_id from useranime ua
+        JOIN users as u on u.user_id = ua.user_id
+        JOIN animes as a on a.mal_id = ua.mal_id
+        where ua.is_watching = true AND u.country = $1
+        `;
+        client.query(sql2, safeValue).then(results => {
+            let resultsArr = results.rows;
+            let counts = resultsArr.reduce(function (obj, val) {
+                obj[val.mal_id] = (obj[val.mal_id] || 0) + 1;
+                return obj;
+            }, {});
+            let keys = Object.keys(counts);
+            let arrarr = [];
+            keys.forEach(item => {
+                if (counts[item] > countryUsersCount/3) {
+                    let obj = {}
+                    obj[item] = counts[item];
+                    arrarr.push(obj)
+                }
+            });
+            let result = arrarr.sort((a, b) => {
+                a = Object.values(a)[0];
+                b = Object.values(b)[0];
+                if (a > b) {
+                    return -1;
+                }
+                if (a < b) {
+                    return 1;
+                }
+                return 0;
+            });
+            
+            res.send(result);
+        })
+    })
+
 }
 
 function insertAnimeList(req) {
@@ -186,13 +238,19 @@ function signupHandler(req, res) {
                 let message = "Passwords don't match.";
                 res.render("pages/login", { message, localStorage });
             } else {
-                let safeValues2 = [userName, password];
-                let sql2 =
-                    "insert into users (username ,password) values ($1 , $2);";
-                client.query(sql2, safeValues2).then(() => {
-                    let message = "Sign-Up Successful! Please sign in.";
-                    res.render("pages/login", { message, localStorage });
-                });
+                superAgent.get('http://api.ipstack.com/check?access_key=cb3a596115dc68c37a4f0e6706b05f5b&format=1')
+                    .then((results) => {
+                        let country = results.body.country_name;
+                        let safeValues2 = [userName, password, country];
+                        let sql2 =
+                            "insert into users (username ,password, country) values ($1 , $2, $3);";
+                        client.query(sql2, safeValues2).then(() => {
+                            let message = "Sign-Up Successful! Please sign in.";
+                            res.render("pages/login", { message, localStorage });
+                        });
+                    })
+
+
             }
         }
     });
@@ -207,12 +265,14 @@ function signinHandler(req, res) {
             console.log("Username exists");
             let safeValues2 = [userName, password];
             let sql2 =
-                "SELECT username,user_id FROM users WHERE username=$1 AND password=$2;";
+                "SELECT username,user_id,country FROM users WHERE username=$1 AND password=$2;";
             client.query(sql2, safeValues2).then((results2) => {
                 if (results2.rowCount > 0) {
                     let user_id = results2.rows[0].user_id;
+                    let country = results2.rows[0].country;
                     localStorage.setItem("username", userName);
                     localStorage.setItem("userid", user_id);
+                    localStorage.setItem("country", country);
                     console.log("Success");
                     res.redirect("/login");
                 } else {
@@ -228,6 +288,7 @@ function signinHandler(req, res) {
 }
 
 const getnotification = async () => {
+
     let getnotification = `select * from useranime ua
     JOIN users as u on u.user_id = ua.user_id
     JOIN animes as a on a.mal_id = ua.mal_id
@@ -242,44 +303,45 @@ function passwordChanger(req, res) {
     let userName = localStorage.getItem("username")
     let safeValues = [userName];
     if (newPassword !== newPasswordValidate) {
+        // x
         let message = "New passwords don't match."
         console.log(message);
         res.redirect('/user_list');
     }
-else{
-    let sql = "SELECT password FROM users WHERE username=$1;";
-    client.query(sql, safeValues).then((results) => {
-        let password = results.rows[0].password;
-        if (password !== currentPassword) {
-            let message = "Current password doesn't match what you input."
-            console.log(message); 
-            res.redirect('/user_list');
-        }
-        else{
-            let safeValues2 = [newPassword,userName];
-            let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
-            client.query(sql2,safeValues2).then(()=>{
-                console.log("Password");
+    else {
+        let sql = "SELECT password FROM users WHERE username=$1;";
+        client.query(sql, safeValues).then((results) => {
+            let password = results.rows[0].password;
+            if (password !== currentPassword) {
+                let message = "Current password doesn't match what you input."
+                console.log(message);
                 res.redirect('/user_list');
             }
-            )
-        }
-    })
-}
+            else {
+                let safeValues2 = [newPassword, userName];
+                let sql2 = 'UPDATE users SET password=$1 WHERE username=$2;'
+                client.query(sql2, safeValues2).then(() => {
+                    console.log("Password");
+                    res.redirect('/user_list');
+                }
+                )
+            }
+        })
+    }
 }
 
 
 async function searchRender(req, res) {
-    let animes =[];
+    let animes = [];
     if (req.query.search !== undefined) {
         let { body } = await superAgent.get(
             `https://api.jikan.moe/v3/search/anime?q=${req.query.search}`
         );
-         animes = body.results;    
+        animes = body.results;
     }
     let { rows: notifications } = await getnotification();
     res.render("pages/search", {
-        localStorage,animes, notifications, localUsername: localStorage.getItem("username"),
+        localStorage, animes, notifications, localUsername: localStorage.getItem("username"),
     });
 }
 
@@ -297,8 +359,11 @@ async function mainHandler(req, res) {
     let date = new Date();
     let season = getSeason(date);
     let url = `https://api.jikan.moe/v3/season/${date.getFullYear()}/${season}`;
+    let url2 = "https://animechanapi.xyz/api/quotes/random";
+
     superAgent(url).then((result) => {
         let animeArr = [];
+        console.log('first url '+ url)
         for (let i = 0; i < 8; i++) {
             animeArr.push({
                 title: result.body.anime[i].title,
@@ -306,7 +371,6 @@ async function mainHandler(req, res) {
                 id: result.body.anime[i].mal_id
             })
         }
-        let url2 = "https://animechanapi.xyz/api/quotes/random";
         superAgent.get(url2).then((results) => {
             res.render("pages/index", {
                 animeArr: animeArr,
@@ -316,10 +380,13 @@ async function mainHandler(req, res) {
                 notifications
             });
         })
-            .catch(() => {
-                res.send("did not work");
-            });
+        .catch(() => {
+            res.send("quote");
+        });
     })
+    .catch(() => {
+        res.send("main");
+    });
 }
 function getSeason(date) {
     switch (date.getMonth()) {
@@ -336,7 +403,7 @@ function getSeason(date) {
         case 9:
         case 10:
         case 11:
-            return "autumn";
+            return "fall";
             break;
         case 0:
         case 1:
@@ -358,7 +425,7 @@ function logoutHandler(req, res) {
 }
 
 
-app.get('*',(req,res)=>{
+app.get('*', (req, res) => {
     res.status(404).render('pages/error');
 })
 
