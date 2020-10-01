@@ -117,7 +117,7 @@ button.detailsBtn {
     color: var(--main-color);
 }
 #banner {
-    margin: 80px 0px;
+    margin: 10px 0px;
 }
 .indexButtons,
 .tabs:hover,
@@ -265,7 +265,7 @@ button.detailsBtn {
 }
 
 main {
-    min-height: 80vh;
+    min-height: 85vh;
 }
 
 .parallax-anime-div {
@@ -327,4 +327,13 @@ main {
     justify-content: center;
     padding: 30px;
     text-transform: capitalize;
+}
+
+.card li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.change-password{
+    margin-top:30px;
 }

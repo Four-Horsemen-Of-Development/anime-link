@@ -60,7 +60,7 @@ function getTopAnime(){
         
                 datasets: [
                     {
-                        label: "members (millions)",
+                        label: "members",
                         backgroundColor: "#E58A96",
                         data: topAnimeArr.map((item)=>{return item.members}),
                     }

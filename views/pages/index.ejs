@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animatic</title>
-    <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../../styles/main.css" />
     <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="slick-1.8.1/slick/slick-theme.css" />
 </head>
+
 <body>
     <%- include('../layouts/nav') %>
     <section class="banner container">
@@ -21,7 +20,7 @@
             <p class="smallerBannerText">Go to user panel to checkout your lists and modify them for your needs.</p>
             <a href="/user_list" class="indexButtons">User panel</a>
             <%}else {%>
-            <p class="bannerText">Sign Up for free</p>
+            <p class="bannerText">Welcome to anime world</p>
             <p class="smallerBannerText">To add animes to your lists and get notified when new episodes air.</p>
             <a href="/login" class="indexButtons">SIGN UP</a>
             <% } %>
@@ -31,7 +30,7 @@
         <div class="container">
             <hr>
             <p class="bannerText">Seasonal Anime</p>
-            <section id='seasonal' class="row padding" >
+            <section id='seasonal' class="row padding">
                 <% animeArr.forEach((item)=>{%>
                 <div>
                     <form id="searched-form" action="/details/<%= item.id%>" class="col">
@@ -41,19 +40,29 @@
                         </button>
                     </form>
                 </div>
-                <hr />
-                <p class="bannerText">Top Anime</p>
-                <section id="topAnimes" class="padding">
-                    <canvas id="topAnimesChart" width="800" height="450">
-                    </canvas>
-                </section>
+                <% })%>
+            </section>
+            <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png"
+                class="rotate quote" />
+            <section class="quoteSec padding">
+                <p><%= quote.quote%></p>
+                <p>
+                    <span>
+                        - <%= quote.character%> <br />
+                        <%= quote.anime%></span>
+                </p>
+            </section>
+            <div class="quoteClose">
+                <img src="https://kingstonhsc.ca/kgh-journey/images/icons/Section2-Quote-PinkEnd.png" class="quote" />
             </div>
             <hr>
-            <p class="bannerText">Top Anime</p>
+            <p class="bannerText">Top 10 Anime</p>
             <section id="topAnimes" class="padding">
                 <canvas id="topAnimesChart" width="800" height="450">
                 </canvas>
             </section>
+        </div>
+
         </div>
     </main>
     <%- include('../layouts/notification') %>
@@ -65,5 +74,5 @@
     <script>
     </script>
 </body>
-</html>
 
+</html>

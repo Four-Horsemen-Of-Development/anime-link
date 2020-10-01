@@ -14,57 +14,57 @@
 <body>
     <main>
 
-    <div>
-        <div class="error-message container">
-            <p><%=message%></p>
-        </div>
-        <div class="login-container d-flex">
-            <div class="login-form-wrap">
-                <form class="width100 justify-between flex-wrap" action="/signup" method="POST">
-                    <span class="login-form-title">
-                        Sign up!
-                    </span>
-                    <div class="wrap-input">
-                        <input required class="login-input" type="text" name="userName" placeholder="Username">
-                    </div>
-                    <div class="wrap-input">
-                        <input required class="login-input" type="password" name="password" placeholder="***********"
-                            minlength="6">
-                    </div>
-                    <div class="wrap-input">
-                        <input required class="login-input" type="password" name="passwordValidate"
-                            placeholder="***********" minlength="6">
-                    </div>
-                    <div class="login-form-button-container" style="margin-top:17px;">
-                        <button class="login-form-button">
-                            Sign Up
-                        </button>
-                    </div>
-                </form>
+        <div>
+            <div class="error-message container">
+                <p><%=message%></p>
             </div>
-            <div class="login-form-wrap">
+            <div class="login-container d-flex">
+                <div class="login-form-wrap">
+                    <form class="width100 justify-between flex-wrap" action="/signup" method="POST">
+                        <span class="login-form-title">
+                            Sign up!
+                        </span>
+                        <div class="wrap-input">
+                            <input required class="login-input" type="text" name="userName" placeholder="Username">
+                        </div>
+                        <div class="wrap-input">
+                            <input required class="login-input" type="password" name="password"
+                                placeholder="***********" minlength="6">
+                        </div>
+                        <div class="wrap-input">
+                            <input required class="login-input" type="password" name="passwordValidate"
+                                placeholder="***********" minlength="6">
+                        </div>
+                        <div class="login-form-button-container" style="margin-top:17px;">
+                            <button class="login-form-button">
+                                Sign Up
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="login-form-wrap">
 
-                <form class="width100 justify-between flex-wrap d-flex" action="/signin" method="POST">
-                    <span class="login-form-title">
-                        Sign in!
-                    </span>
-                    <div class="wrap-input">
-                        <input required class="login-input" type="text" name="userName" placeholder="Username">
-                    </div>
-                    <div class="wrap-input">
-                        <input required class="login-input" type="password" name="password" placeholder="***********"
-                            minlength="6">
-                    </div>
-                    <div class="login-form-button-container">
-                        <button class="login-form-button login-button-second">
-                            Sign In
-                        </button>
-                    </div>
-                </form>
+                    <form class="width100 justify-between flex-wrap d-flex" action="/signin" method="POST">
+                        <span class="login-form-title">
+                            Sign in!
+                        </span>
+                        <div class="wrap-input">
+                            <input required class="login-input" type="text" name="userName" placeholder="Username">
+                        </div>
+                        <div class="wrap-input">
+                            <input required class="login-input" type="password" name="password"
+                                placeholder="***********" minlength="6">
+                        </div>
+                        <div class="login-form-button-container">
+                            <button class="login-form-button login-button-second">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-
         </div>
-    </div>
     </main>
     <%- include('../layouts/footer') %>
 </body>

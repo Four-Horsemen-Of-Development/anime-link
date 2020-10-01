@@ -4,7 +4,8 @@ DROP TABLE IF EXISTS animes;
 CREATE TABLE IF NOT EXISTS users (
   user_id SERIAL PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
-  password VARCHAR(50) NOT NULL
+  password VARCHAR(50) NOT NULL,
+  country VARCHAR(255) NOT NULL
 );
 DROP TABLE animes;
 CREATE TABLE IF NOT EXISTS animes (
@@ -22,3 +23,5 @@ CREATE TABLE IF NOT EXISTS useranime (
   user_id INT REFERENCES users (user_id),
   PRIMARY KEY(mal_id,user_id)
 );
+
+INSERT INTO users (username,password,country) VALUES ('abdallah','notahmad','France');

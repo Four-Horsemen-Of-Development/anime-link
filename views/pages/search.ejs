@@ -22,55 +22,6 @@
     </head>
 
     <body>
-        <%- include('../layouts/nav') %>
-        <main class="container text-center minvh">
-            <form id="searchForm" class="searchOptionsGrid">
-                <div>
-                    <!-- <h2>Search</h2> -->
-                    <input
-                        required
-                        class="fullWidth"
-                        type="text"
-                        id="searchQuery"
-                        name="searchQuery"
-                        placeholder="Search"
-                    />
-                </div>
-                <div>
-                    <select name="genre" id="genre" class="thirds">
-                        <option value="">Category</option>
-                        <option value="&genre=1">Action</option>
-                        <option value="&genre=7">Mystery</option>
-                        <option value="&genre=8">Drama</option>
-                        <option value="&genre=10">Fantasy</option>
-                        <option value="&genre=14">Horror</option>
-                    </select>
-                    <select name="rated" id="rated" class="thirds">
-                        <option value="">Rated</option>
-                        <option value="&rated=g">All Ages</option>
-                        <option value="&rated=pg">Children</option>
-                        <option value="&rated=pg13">Teens</option>
-                        <option value="&rated=r17">Violence</option>
-                    </select>
-                    <select name="status" id="status" class="thirds">
-                        <option value="">Status</option>
-                        <option value="&status=airing">Airing</option>
-                        <option value="&status=completed">Completed</option>
-                        <option value="&status=upcoming">Upcoming</option>
-                    </select>
-                </div>
-                <div>
-                    <button
-                        id="searchButton"
-                        type="submit"
-                        class="indexButtons"
-                    >
-                        Submit
-                    </button>
-                </div>
-            </form>
-
-<body>
     <%- include('../layouts/nav') %>
     <main class="container text-center minvh">
         <div class="container text-center">
@@ -114,6 +65,20 @@
 
         <section>
             <div class="container row" id="searchResults">
+                <% animes.forEach(anime=>{ %>
+                    <section id="searched-anime">
+                        <form
+                            id="searched-form"
+                            class="col"
+                            action="/details/<%= anime.mal_id %> "
+                        >
+                            <button type="submit" class="detailsBtn">
+                                <img src="<%= anime.image_url %> " />
+                                <h2><%= anime.title %></h2>
+                            </button>
+                        </form>
+                    </section>
+                    <% }) %>
             </div>
         </section>
     </main>
